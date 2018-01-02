@@ -805,7 +805,7 @@ lesshat-selector {
 
 /***************** 8.Widget  ****************/
 .widget-panel {
-  padding: 40px 20px;
+  padding: 10px; /*40px 20px;*/
   border-radius: 4px;
   color: #ffffff;
   position: relative;
