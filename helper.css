@@ -193,6 +193,7 @@ header {
 .dropcap-sm {
     font-size: 2em;
     line-height: 22px;
+    width: 45px;
 }
 
 /* Custom Radio/Checkbox */
