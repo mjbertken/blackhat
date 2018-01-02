@@ -190,6 +190,10 @@ header {
     margin-right: 6px;
     text-shadow: none;
 }
+.dropcap-sm {
+    font-size: 2em;
+    line-height: 22px;
+}
 
 /* Custom Radio/Checkbox */
 .cr-styled {
