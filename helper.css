@@ -191,6 +191,11 @@ header {
     text-shadow: none;
 }
 .dropcap-sm {
+    display: block;
+    float: left;
+    font-weight: 400;
+    margin-right: 6px;
+    text-shadow: none;
     font-size: 2em;
     line-height: 22px;
     width: 45px;
