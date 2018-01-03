@@ -481,6 +481,14 @@ margin-top: 0px;
     padding: 10px;
 }
 
+.table .table-slim thead > tr > th,
+.table .table-slim tbody > tr > th, 
+.table .table-slim tfoot > tr > th,
+.table .table-slim thead > tr > td, 
+.table .table-slim tbody > tr > td, 
+.table .table-slim tfoot > tr > td {
+    padding: 4px;
+}
 
 
 .bg-primary{
