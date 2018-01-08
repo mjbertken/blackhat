@@ -91,7 +91,7 @@
             { y: '2014', a: 75,  b: 65 , c: 56 },
             { y: '2015', a: 100, b: 90 , c: 60 }
         ];
-        this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b', 'c'], ['Series A', 'Series B', 'Series c'], ['#3bc0c3', '#1a2942', '#dcdcdc']);
+        this.createBarChart('morris-bar-example', $barData, 'y', ['a', 'b', 'c'], ['Series X', 'Series B', 'Series c'], ['#3bc0c3', '#1a2942', '#dcdcdc']);
 
         //creating donut chart
         var $donutData = [
