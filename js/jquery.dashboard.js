@@ -47,7 +47,7 @@
             ],
             xkey: 'y',
             ykeys: ['a', 'b', 'c'],
-            labels: ['Series A', 'Series B', 'Series c'],
+            labels: ['Series Y', 'Series B', 'Series c'],
             barColors: ['#3bc0c3', '#1a2942', '#dcdcdc']
         });
 
