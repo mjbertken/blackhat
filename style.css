@@ -149,7 +149,8 @@ aside.left-panel {
   left: 0px;
 }
 
-aside.left-panel.collapsed {
+aside.left-panel.collapsed,
+aside.left-panel.hidden{
   overflow: visible !important;
   position: absolute;
   bottom: 0px;
@@ -231,7 +232,8 @@ aside.left-panel.lg + .content {
   vertical-align: middle;
 }
 
-.collapsed .navigation ul li a i {
+.collapsed .navigation ul li a i,
+.hidden .navigation ul li a i{
   float: none;
 }
 
@@ -463,6 +465,10 @@ header {
   bottom: 0;
   right: 0;
   left: 230px;
+}
+
+.hidden + .content .footer{
+  left: 0px;
 }
 
 .collapsed + .content .footer{
