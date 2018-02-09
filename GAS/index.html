@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+      <meta name="author" content="Coderthemes">
+      <link rel="shortcut icon" href="img/favicon_1.ico">
+      <title>Velonic - Responsive Admin Dashboard Template</title>
+<style>
+/*********** LOADER OVERLAY ************/
+/*************** START *****************/
+
+.loading {
+/*    display:none; */
+	z-index: 99999;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, .8);
+}
+
+.loading-text {
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	margin-top: -120px;
+	font-size: 3rem;
+	position: absolute;
+	top: 50%;
+    color:#ccc;
+}
+
+.loading-wheel {
+	width: 20px;
+	height: 20px;
+	margin-top: -40px;
+	margin-left: -40px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-width: 30px;
+	border-radius: 50%;
+	-webkit-animation: spin 1s linear infinite;
+	border-style: double;
+	border-color: #ccc transparent;
+}
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0);
+	}
+	100% {
+		-webkit-transform: rotate(-360deg);
+	}
+}
+
+/*********** LOADER OVERLAY ************/
+/**************** END ******************/
+</style>
+      <script>
+        var LT = new Date().getTime();
+        var jquery_min_js = false;
+        var jquery_ui_js = false;
+        var backendless_min_js = false;
+        var taffy_min_js = false;
+        var bootstrap_min_css = false;
+        var bootstrap_min_js = true;
+        function load_timer(text){
+          var et = new Date().getTime();
+          console.log(((et-LT)/1000).toFixed(4) + ' seconds ' + text);
+          if( ( (jquery_min_js && jquery_ui_js) && (backendless_min_js && taffy_min_js) ) && (bootstrap_min_css && bootstrap_min_js) ){get_t32_customer_data_initial();}
+        }
+      </script>
+      
+      
+      <!-- Google-Fonts -->
+      <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,600,700,900,400italic' rel='stylesheet'>
+      <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+      
+      <!-- Bootstrap core CSS -->
+      <link href="https://rawgit.com/mjbertken/blackhat/master/bootstrap.min.css" rel="stylesheet">
+      <link href="https://rawgit.com/mjbertken/blackhat/master/bootstrap-reset.css" rel="stylesheet">
+      
+      <!--Animation css-->
+      <link href="https://rawgit.com/mjbertken/blackhat/master/animate.css" rel="stylesheet">
+      
+      <!--Icon-fonts css-->
+      <link href="https://rawgit.com/mjbertken/blackhat/master/font-awesome/css/font-awesome.css" rel="stylesheet" />
+      <link href="https://rawgit.com/mjbertken/blackhat/master/ionicon/css/ionicons.min.css" rel="stylesheet" />
+      
+      <!--Morris Chart CSS -->
+      <link rel="stylesheet" href="https://rawgit.com/mjbertken/blackhat/master/morris/morris.css">
+
+      <!--TauCharts -->
+      <script src="//cdn.jsdelivr.net/d3js/3.5.17/d3.min.js" charset="utf-8" onload="load_timer('d3.min.js loaded'); "></script>
+      <script src="//cdn.jsdelivr.net/npm/taucharts@1/build/production/tauCharts.min.js" type="text/javascript" onload="load_timer('tauCharts.min.js loaded'); "></script>
+      <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/taucharts@1/build/production/tauCharts.min.css" onload="load_timer('tauCharts.min.css loaded'); ">
+      
+      <!-- Plugins css -->
+      <link href="https://rawgit.com/mjbertken/blackhat/master/modaleffectcomponent.css" rel="stylesheet">
+      <link href="https://rawgit.com/mjbertken/blackhat/master/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
+      <link href="https://rawgit.com/mjbertken/blackhat/master/timepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+      <!-- sweet alerts -->
+      <link href="https://rawgit.com/mjbertken/blackhat/master/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+      
+      <!-- Custom styles for this template -->
+      <!--<link href="css/style.css" rel="stylesheet">-->
+      <link href="https://rawgit.com/mjbertken/blackhat/master/style.css" rel="stylesheet">
+      <link href="https://rawgit.com/mjbertken/blackhat/master/helper.css" rel="stylesheet">
+      <link href="https://rawgit.com/mjbertken/blackhat/master/style-responsive.css" rel="stylesheet" />
+      
+      <link href="https://rawgit.com/mjbertken/blackhat/master/c3-chart/c3.css" rel="stylesheet" />
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+      <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <![endif]-->
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" onload="jquery_min_js = true; load_timer('jquery.min.js loaded'); "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js" onload="jquery_ui_js = true; load_timer('jquery-ui.js loaded');"></script>
+    <script src="https://api.backendless.com/sdk/js/latest/backendless.min.js" onload="backendless_min_js = true; load_timer('backendless.min.js loaded');"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/taffydb/2.7.3/taffy-min.js" onload="taffy_min_js = true; load_timer('taffy-min.js loaded');"></script>
+    <!-- Boostrap -->
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" onload="bootstrap_min_css = true; load_timer('bootstrap.min.css loaded');">
+      <!-- Latest compiled JavaScript -->
+      <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" onload="bootstrap_min_js = true; load_timer('bootstrap.min.js loaded');"></script>-->
+    <!-- Boostrap End -->
+  </head>
+    
+    <script>
+var APP_ID = 'ED0F8814-0CF8-4EBB-FF35-90961078C500';
+var API_KEY = 'CF0FB929-7601-1074-FFC1-77363B4E8500';
+try{
+  Backendless.serverURL = 'https://api.backendless.com';
+  Backendless.initApp(APP_ID, API_KEY);
+  load_timer('Backendless initialized',LT);
+} catch(e){
+  console.log(e);
+}
+  </script>
+
+  <script>
+var db = TAFFY();
+var t32_customer_data_COUNT = 0;
+
+function find_uid(CustomerAccountId){
+  var contactStorage = Backendless.Data.of( "t32_customer_data" );
+  var queryBuilder = Backendless.DataQueryBuilder.create();
+  queryBuilder.setWhereClause( "CustomerAccountId ="&CustomerAccountId );
+  queryBuilder.setOffset( 0 );
+  contactStorage.find( queryBuilder )
+   .then( function( contactsArray ) {
+      var record = contactsArray[0];
+      var uid = record['objectId'];
+      console.log(uid);
+      return uid;
+    });
+}
+
+//var MAX_LEN;
+//var MAX_LEN_MATCH_COUNT = 0;
+var t32_customer_data_COMPLETE = false;
+var arr = [];
+
+function get_t32_customer_data(count){
+//MAX_LEN = -1;
+//MAX_LEN_MATCH_COUNT = 0;
+db = TAFFY();  
+arr=[];
+var pages = Math.ceil(count/100)+1;
+for(var p=1;p<pages;p++){
+    var customer_data_storage = Backendless.Data.of( "t32_customer_data" );
+    var query_builder = Backendless.DataQueryBuilder.create();
+    query_builder.setPageSize( 100 )
+    query_builder.setOffset( (p*100)-100 );
+    customer_data_storage.find( query_builder )
+     .then( function( temp_array ) {
+         addToDb(db,temp_array);
+      });
+  }
+}
+
+function get_t32_customer_data_initial(){
+  Backendless.Data.of( "t32_customer_data" ).getObjectCount()
+   .then( function( count ) {
+     t32_customer_data_count=count;
+     var et = new Date().getTime();
+       console.log(((et-LT)/1000).toFixed(4) + ' seconds ' + 'DB (t32_customer_data) '+t32_customer_data_count+' records found');
+       get_t32_customer_data(count);
+    })
+   .catch( function( error ) {
+     console.log(error);
+   });
+}
+
+function addToDb(arg_db,arg_arr){
+    for(var r=0;r<arg_arr.length;r++){
+      var obj = arg_arr[r];
+      arg_db.insert(obj);
+    }
+    var et = new Date().getTime();
+    var pct = (((arg_db().get().length/t32_customer_data_count).toFixed(4))*100).toFixed(2);
+    $('.loading-text').html(pct+'%');
+//    console.log(((et-LT)/1000).toFixed(4) + ' seconds ' + 'DB (t32_customer_data) '+ pct +'% records loaded');
+    
+    if(pct==100){
+      calculate();
+      $('.loading').css('display','none');
+    }
+    
+}
+var UTC_HOURS_OFFSET = -6;
+var FILT_DT;
+var LEAD_SOURCES;
+function calculate(){
+FILT_DT = '';
+  var techs = db().distinct("Technician");
+//  console.log(techs);
+  
+  var filt = db().filter({Technician:"ERNESTO MENDEZ"}).count()
+//  console.log(filt);
+  
+  var filt_2 = db().filter({Technician:"ERNESTO MENDEZ"}).filter({Status:"INSTALLED"}).count()
+//  console.log(filt_2);
+  
+var start_date = display_to_date($('#start-date').val());
+//start_date = new Date(start_date.setHours(UTC_HOURS_OFFSET));
+var end_date = new Date(display_to_date($('#end-date').val()).setHours(23));
+end_date = new Date(end_date.setMinutes(59));
+end_date = new Date(end_date.setSeconds(59));
+
+console.log('Start Date: '+start_date);  
+console.log('End Date: '+end_date);  
+
+  var dt_start_serial = start_date.getUnixTimeStamp();//new Date(2017,11,1).getUnixTimeStamp();
+  var dt_end_serial = end_date.getUnixTimeStamp();//new Date(2018,0,23).getUnixTimeStamp();
+
+  FILT_DT = db().filter({ShortSaleDate:{gte:dt_start_serial}}).filter({ShortSaleDate:{lte:dt_end_serial}});
+  var filt_dt_count = FILT_DT.count()
+//  console.log(filt_dt_count);
+  
+  LEAD_SOURCES = FILT_DT.distinct("LeadSource");//db().distinct("LeadSource");
+  for(var v=0;v<LEAD_SOURCES.length;v++){
+//      console.log('LEAD SOURCE: ' + LEAD_SOURCES[v] + ' COUNT: ' + db().filter({LeadSource:LEAD_SOURCES[v]}).count());
+  } 
+  
+  
+//  tech_chart(FILT_DT);
+console.log('calculate() complete'); 
+tech_chart()
+leads_by_lead_source_chart();
+mmr_by_lead_source_chart();
+}
+
+
+</script>
+<style>
+html,body,#bar{
+ width:100%;
+ height:100%;  
+ margin:0;
+ padding: 0;
+}
+
+#bar > svg{  
+ display:block;
+}
+:root {
+--main-installed: #007E33;
+--main-cancelled: #CC0000;
+--main-scheduled: #4285F4;
+--main-cancel-pending: #ffbb33;
+--main-lead: #9933CC;
+}
+.color-red{fill: #ff4444;}
+
+.color-red-dark,
+.color-cancelled{fill: var(--main-cancelled);}
+
+.color-green {fill: #00C851;}
+.color-green-dark,
+.color-installed{fill: var(--main-installed);}
+.btn-installed{background-color: var(--main-installed);color: white;}
+.btn-installed:hover{color: white;}
+
+.color-blue,
+.color-scheduled{ fill: var(--main-scheduled);}
+.color-blue-dark { fill: #0d47a1;}
+.color-yellow,
+.color-cancel-pending{fill:var(--main-cancel-pending);}
+.color-lead{fill:var(--main-lead);}
+
+
+</style>
+<script>
+
+function change_tech_chart_type(){
+  var len = tech_chart_types.arr.length-1;
+  if(tech_chart_types.cur<len){
+    tech_chart_types.cur++;
+  } else {
+    tech_chart_types.cur = 0;
+  }
+  tech_chart();
+}
+
+var tech_chart_types = { 
+  arr: ['horizontalBar','horizontal-stacked-bar'],
+  cur: 0
+  };
+
+function tech_chart(){
+  var data_db = FILT_DT;
+  var portlet_elm = '#status-x-tech-portlet';
+  var target_elm = portlet_elm+' .chart-div';
+  var legend_elm = portlet_elm+' .legend';
+  $(target_elm).empty();
+  var techs = data_db.distinct("Technician");
+  var data = [];
+  for(var t=0;t<techs.length;t++){
+    var statuses = data_db.filter({Technician:techs[t]}).distinct("Status");
+    var tech = techs[t];
+    if(tech.indexOf(' ')>0){
+      tech = tech.split(' ')[0][0] + '. '+ tech.split(' ')[1]
+    };
+    if(tech.length > 14 ){tech = tech.substring(0, 14)};
+    for(var s=0;s<statuses.length;s++){
+      var obj = {};
+      var tech_status_count = data_db.filter({Technician:techs[t]}).filter({Status:statuses[s]}).count();
+      obj['Technician']=tech;
+      obj['Status']=statuses[s];
+      obj['Count']=tech_status_count;
+      if(techs[t]!==''){
+        if( $(portlet_elm + ' .legend-'+statuses[s].toLowerCase().replaceAll(' ','-')).length == 0 ){
+            var lgd_grp = document.createElement('div');
+            $(lgd_grp).attr('color-class','color-'+statuses[s].toLowerCase().replaceAll(' ','-'));
+            $(lgd_grp).attr('class','legend-group legend-'+statuses[s].toLowerCase().replaceAll(' ','-') + ' noselect');
+            $(lgd_grp).attr('state','on');
+            var lgd_block = document.createElement('div');
+            $(lgd_block).attr('class','legend-color-block');
+            var lgd_text = document.createElement('div');
+            $(lgd_text).attr('class','legend-text');
+            $(lgd_text).html(statuses[s]);
+            $(lgd_grp).append(lgd_block);
+            $(lgd_grp).append(lgd_text);
+            $(legend_elm).append(lgd_grp);
+        }else{
+          if($(portlet_elm + ' .legend-'+statuses[s].toLowerCase().replaceAll(' ','-')).attr('state')=='on'){
+            data.push(obj);
+          }
+        }
+      }      
+    }
+  }
+  var chart_type = tech_chart_types.arr[tech_chart_types.cur];
+  var chart = new tauCharts.Chart({
+      type: chart_type,
+      y    : 'Technician',
+      x    : 'Count',
+      color: 'Status',
+      guide:{
+        x:{
+          padding:0,
+          label:{text: ' ',padding:0}
+        },
+        y:{
+          padding:20,
+          label:{text: ' ',padding:0}
+        },
+        padding: {b:10,l:70,t:10,r:10},
+        showGridLines:'xy',
+        color:{
+            brewer:{INSTALLED:'color-installed',SCHEDULED:'color-scheduled', CANCELLED:'color-cancelled','CANCEL PENDING':'color-cancel-pending'}
+        }
+      },
+      data: data,
+      settings: {
+        fitModel: 'normal'//'entire-view'//'minimal'//'fit-width'
+      },
+      plugins: [
+        tauCharts.api.plugins.get('tooltip')({fields: ['Technician','Status', 'Count']})
+      ]
+  });
+  chart.renderTo(target_elm);
+  console.log('tech_chart() complete'); 
+}
+
+function change_leads_by_lead_source_chart_type(){
+  var len = leads_by_lead_source_chart_types.arr.length-1;
+  if(leads_by_lead_source_chart_types.cur<len){
+    leads_by_lead_source_chart_types.cur++;
+  } else {
+    leads_by_lead_source_chart_types.cur = 0;
+  }
+  leads_by_lead_source_chart();
+}
+
+var leads_by_lead_source_chart_types = { 
+  arr: ['horizontalBar','horizontal-stacked-bar'],
+  cur: 0
+  };
+
+
+function leads_by_lead_source_chart(){
+  var data_db = FILT_DT;
+  var portlet_elm = '#leads-x-lead-source-portlet';
+  var target_elm = portlet_elm+' .chart-div';
+  var legend_elm = portlet_elm+' .legend';
+  $(target_elm).empty();
+  var lsources = data_db.distinct("LeadSource");
+  var data = [];
+  for(var t=0;t<lsources.length;t++){
+    var statuses = data_db.filter({LeadSource:lsources[t]}).distinct("Status");
+    var lsource = lsources[t];
+    if(lsource.indexOf(' ')>0){
+//      lsource = lsource.split(' ')[0][0] + '. '+ lsource.split(' ')[1];
+        if(lsource.length > 14 ){lsource = lsource.substring(0, 14)};
+    };
+//    if(lsource.length > 14 ){lsource = lsource.substring(0, 14)};
+    for(var s=0;s<statuses.length;s++){
+      var obj = {};
+      var tech_status_count = data_db.filter({LeadSource:lsources[t]}).filter({Status:statuses[s]}).count();
+      obj['Technician']=lsource;
+      obj['Status']=statuses[s];
+      obj['Count']=tech_status_count;
+      if(lsources[t]!==''){
+        if( $(portlet_elm + ' .legend-'+statuses[s].toLowerCase().replaceAll(' ','-')).length == 0 ){
+            var lgd_grp = document.createElement('div');
+            $(lgd_grp).attr('color-class','color-'+statuses[s].toLowerCase().replaceAll(' ','-'));
+            $(lgd_grp).attr('class','legend-group legend-'+statuses[s].toLowerCase().replaceAll(' ','-') + ' noselect');
+            $(lgd_grp).attr('state','on');
+            var lgd_block = document.createElement('div');
+            $(lgd_block).attr('class','legend-color-block');
+            var lgd_text = document.createElement('div');
+            $(lgd_text).attr('class','legend-text');
+            $(lgd_text).html(statuses[s]);
+            $(lgd_grp).append(lgd_block);
+            $(lgd_grp).append(lgd_text);
+            $(legend_elm).append(lgd_grp);
+        }else{
+          if($(portlet_elm + ' .legend-'+statuses[s].toLowerCase().replaceAll(' ','-')).attr('state')=='on'){
+            data.push(obj);
+          }
+        }
+      }      
+    }
+  }
+  var chart_type = leads_by_lead_source_chart_types.arr[leads_by_lead_source_chart_types.cur];
+  var chart = new tauCharts.Chart({
+      type: chart_type,
+      y    : 'Technician',
+      x    : 'Count',
+      color: 'Status',
+      guide:{
+        x:{
+          padding:0,
+          label:{text: ' ',padding:0}
+        },
+        y:{
+          padding:20,
+          label:{text: ' ',padding:0}
+        },
+        padding: {b:10,l:70,t:10,r:10},
+        showGridLines:'xy',
+        color:{
+            brewer:{INSTALLED:'color-installed',SCHEDULED:'color-scheduled', CANCELLED:'color-cancelled','CANCEL PENDING':'color-cancel-pending',LEAD:'color-lead'}
+        }
+      },
+      data: data,
+      settings: {
+        fitModel: 'normal'//'entire-view'//'minimal'//'fit-width'
+      },
+      plugins: [
+        tauCharts.api.plugins.get('tooltip')({fields: ['Technician','Status', 'Count']})
+      ]
+  });
+  chart.renderTo(target_elm);
+  console.log('leads_by_lead_source_chart() complete'); 
+}
+
+</script>
+<style>
+.label-dark-blue{fill:#1a2942 !important;}
+.label-light-blue{fill:#3bc0c3 !important;}
+</style>
+<script>
+
+function change_mmr_by_lead_source_chart_type(){
+  var len = mmr_by_lead_source_chart_types.arr.length-1;
+  if(mmr_by_lead_source_chart_types.cur<len){
+    mmr_by_lead_source_chart_types.cur++;
+  } else {
+    mmr_by_lead_source_chart_types.cur = 0;
+  }
+  mmr_by_lead_source_chart();
+}
+
+var mmr_by_lead_source_chart_types = { 
+  arr: ['horizontalBar','horizontal-stacked-bar'],
+  cur: 0
+  };
+
+//var mmr_sum = 0;
+function mmr_by_lead_source_chart(){
+  var data_db = FILT_DT;
+  var portlet_elm = '#mmr-x-lead-source-portlet';
+  var target_elm = portlet_elm+' .chart-div';
+  var legend_elm = portlet_elm+' .legend';
+  $(target_elm).empty();
+  var lsources = data_db.distinct("LeadSource");
+  var data = [];
+  var data2 = [];
+  var data_xdb = TAFFY();
+//  var obj ={};
+//  obj['Lead Source']='Allstate';
+//  obj['Count']=2;
+//  obj['Sum']=70;
+//  obj['Avg']=35;
+//  data.push(obj)
+  
+  for(var t=0;t<lsources.length;t++){
+//    var statuses = data_db.filter({LeadSource:lsources[t]}).distinct("Status");
+    var lsource = lsources[t];
+    if(lsource.indexOf(' ')>0){
+        if(lsource.length > 14 ){lsource = lsource.substring(0, 12)+'...'};
+    };
+//    for(var l=0;l<lsources.length;l++){
+      var mmr_sum_ovr = 0;
+      var mmr_count_ovr = 0;
+      
+      if(lsource!==''){
+      var obj = {};
+      var mmr_sum = 0;
+      var mmr_count = 0;
+
+      
+        var tech_status_count = data_db.filter({LeadSource:lsources[t]}).each(function (record,recordnumber) {//.filter({Status:statuses[s]}).count();
+          mmr_sum = mmr_sum + (record.MonthlyMonitoringRate*1);
+          mmr_sum_ovr = mmr_sum_ovr + (record.MonthlyMonitoringRate*1);
+          if((record.MonthlyMonitoringRate*1)>0){
+            mmr_count++;
+            mmr_count_ovr++;
+//            data.push({'Lead Source':lsource,'Lead Source Full':lsources[t],'Count':1,'Total MMR':record.MonthlyMonitoringRate*1,'Avg MMR':record.MonthlyMonitoringRate*1});
+          }
+        });
+        var mmr_sum = mmr_sum.toFixed(2);
+        var mmr_avg = (mmr_sum/mmr_count).toFixed(2);
+        if(isNaN(mmr_avg)){mmr_avg=0};
+
+//        data_xdb.insert({'Lead Source':lsource,'Lead Source Full':lsources[t],'Count':mmr_count,'Total MMR':mmr_sum,'Avg MMR':mmr_avg});
+//        obj['Lead Source']=lsource;
+//        obj['Lead Source Full']=lsources[t];
+//        obj['Count']=mmr_count;
+//        obj['Total MMR']=mmr_sum;
+//        obj['Avg MMR']=mmr_avg;// if(isNaN(mmr_avg)){obj['Avg']=0.00};
+          if(mmr_count>0){
+            data.push({'Lead Source':lsource,'Lead Source Full':lsources[t],'Count':mmr_count*1,'Total MMR':mmr_sum*1,'Avg MMR':mmr_avg*1});
+//            data.push({'Lead Source':lsource,'Lead Source Full':lsources[t],'Type':'Avg MMR','Count':mmr_count*1,'MMR':mmr_avg*1});
+//            data.push({'Lead Source':lsource,'Lead Source Full':lsources[t],'Type':'Total MMR','Count':mmr_count*1,'MMR':mmr_sum*1});
+          }
+        }
+   
+//    }
+  }
+
+
+console.log(data);
+  
+  data.sort(function(a, b){
+	return a['Count']-b['Count']
+})
+      var mmr_avg_ovr = (mmr_sum_ovr/ mmr_count_ovr); 
+
+var plot = new tauCharts.Plot({
+
+    settings: {
+        fitModel: 'none'
+    },
+
+    sources: {
+        '?': {
+            dims: {},
+            data: []
+        },
+
+        '$': {
+            dims: {
+                x: {type: 'category'},
+                y: {type: 'category'}
+            },
+            data: [
+                {x: 1, y: 1}
+            ]
+        },
+
+        '/': {
+            dims: {
+                'Lead Source': {type: 'category'},
+                'Avg MMR': {type: 'measure'},
+                'Total MMR' : {type: 'measure'}
+            },
+            data: data
+        }
+    },
+
+    scales: {
+
+        'xScale': {type: 'ordinal', source: '$', dim: 'x'},
+        'yScale': {type: 'ordinal', source: '$', dim: 'y'},
+
+        "x_LeadSource":{"type":"ordinal","source":"/","dim":"Lead Source","autoScale":true,"dimType":"category"},
+        "y_AvgMMR":{"type":"linear","source":"/","dim":"Avg MMR","autoScale":true,"dimType":"measure"},
+        "y_TotalMMR":{"type":"linear","source":"/","dim":"Total MMR","autoScale":true,"dimType":"measure"},
+        "color_undefined":{"type":"color","source":"/", brewer:['#1a2942']},
+        "color_undefined2":{"type":"color","source":"/", brewer: ['#3bc0c3']},//color20-2']},
+        "fill_undefined2":{"type":"fill","source":"/", brewer: ['#3bc0c3']},//color20-2']},
+        "size_undefined":{"type":"size","source":"/","min":2,"max":10,"mid":5},
+        
+        "text:default":{"type":"value","source":"?"},
+        "split:default":{"type":"value","source":"?"}
+    },
+
+    unit: {
+        type: "COORDS.RECT",
+        x: 'xScale',
+        y: 'yScale',
+        expression: {
+            source: '$',
+            inherit: false,
+            operator: false
+        },
+        guide: {
+            showGridLines: ""
+        },
+        frames: [
+            {
+                key: {x: 1, y: 1, i:0},
+                source: '$',
+                pipe: [],
+                units: [
+                    {
+                        x: "x_LeadSource",
+                        y: "y_TotalMMR",
+                        type: "COORDS.RECT",
+                        expression: {
+                            inherit: false,
+                            operator: "none",
+                            params: [],
+                            source: "/"
+                        },
+                        guide: {
+                            autoLayout: "",
+                            x: {
+                                autoScale: true,
+                                cssClass: "x axis",
+                                hide: false,
+                                label: {
+                                    cssClass: "label",
+                                    padding: 0,//129,
+                                    rotate: 0,
+                                    size: 889.75,
+                                    text: "Lead Source",
+                                    textAnchor: "middle",
+                                    hide:true,
+                                },
+                                padding: 0,//20,
+                                rotate: 90,
+                                scaleOrient: "bottom",
+                                textAnchor: "start"
+                            },
+                            y: {
+                                autoScale: true,
+                                cssClass: "y axis",
+                                hide: false,
+                                label: {
+                                    cssClass: "label label-dark-blue",
+                                    padding: 0,//70.25,
+                                    rotate: -90,
+                                    size: 431,
+                                    text: "Total MMR",
+                                    fill: "#cc3939",
+                                    textAnchor: "middle"
+                                },
+                                padding: 20,//-20,
+                                rotate: 0,
+                                scaleOrient: "right",
+                                textAnchor: "start",
+                                tickFormat: "x-num-auto"
+                            },
+                            padding: {
+                                b: 100,//159,
+                                l: 40.25,
+                                r: 40.25,//10,
+                                t: 10
+                            },
+                            showGridLines: "xy"
+                        },
+
+                        units: [
+                            {
+                                size: "size_undefined",
+                                type: "ELEMENT.LINE",
+                                x: "x_LeadSource",
+                                y: "y_TotalMMR",
+                                color: "color_undefined",
+                                expression: {
+                                    inherit: false,
+                                    operator: "none",
+                                    params: [],
+                                    source: "/"
+                                },
+                                guide: {
+                                    anchors: false,
+                                    cssClass: "i-role-datum",
+                                    showGridLines: "xy",
+                                    widthCssClass: "",
+                                    color: {},
+                                    showAnchors: 'always'
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+            ,
+            {
+                key: {x: 1, y: 1, i:1},
+                source: '$',
+                pipe: [],
+                units: [
+                    {
+                        x: "x_LeadSource",
+                        y: "y_AvgMMR",
+                        type: "COORDS.RECT",
+                        expression: {
+                            inherit: false,
+                            operator: "none",
+                            params: [],
+                            source: "/"
+                        },
+                        guide: {
+                            autoLayout: "",
+                            x: {
+                                autoScale: true,
+                                cssClass: "x axis",
+                                hide: true,
+                                label: {
+                                    cssClass: "label",
+                                    padding: 129,
+                                    rotate: 0,
+                                    size: 889.75,
+                                    text: "LeadSource",
+                                    textAnchor: "middle"
+                                },
+                                padding: 20,
+                                rotate: 90,
+                                scaleOrient: "bottom",
+                                textAnchor: "start"
+                            },
+                            y: {
+                                autoScale: true,
+                                cssClass: "y axis",
+                                hide: false,
+                                label: {
+                                    cssClass: "label label-light-blue",
+                                    // padding: 70.25,
+                                    padding: -10,//-9,
+                                    rotate: -90,
+                                    size: 431,
+                                    text: "Average MMR",
+                                    textAnchor: "middle"
+                                },
+                                padding: 15,//55,
+                                rotate: 0,
+                                scaleOrient: "left",
+                                textAnchor: "end",
+                                tickFormat: "x-num-auto"
+                            },
+                            padding: {
+                                b: 100,//159,
+                                l: 40.25,
+                                r: 40.25,//10,
+                                t: 10
+                            },
+                            showGridLines: ""
+                        },
+
+                        units: [
+                            {
+                                size: "size_undefined",
+                                type: "ELEMENT.LINE",
+                                x: "x_LeadSource",
+                                y: "y_AvgMMR",
+                                color: "color_undefined2",
+                                expression: {
+                                    inherit: false,
+                                    operator: "none",
+                                    params: [],
+                                    source: "/"
+                                },
+                                guide: {
+                                    anchors: false,
+                                    cssClass: "i-role-datum",
+                                    showGridLines: "xy",
+                                    widthCssClass: "",
+                                    color: {},
+                                    showAnchors: 'always'
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+          plugins: [
+        tauCharts.api.plugins.get('tooltip')({fields: ['Lead Source Full','Avg MMR','Count', 'Total MMR']})
+      ]
+});
+
+plot.renderTo(target_elm);
+
+}
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
+Date.prototype.getUnixTimeStamp = function(hours_offset) {
+  if(hours_offset){
+    console.log('hours offset');
+    var offset = 3600000*hours_offset;
+    return Math.round((this).getTime()+offset);
+  } else {
+    return Math.round((this).getTime());
+  }
+}
+Date.prototype.getSerialDateNumber = function() {
+    var baseDate = new Date(1900,1,1);
+    var oneDay = 86400000;
+    var dayDiff = Math.ceil(
+        (this.getTime() - baseDate.getTime()) / oneDay
+    );
+    return dayDiff;
+}
+
+function save(){
+google.script.run.withSuccessHandler(success_ss_data).update_ss_data();//date_column,date_range_start,date_range_end);
+function success_ss_data(data){
+  for(var r=0;r<data.length;r++){
+
+    if (r>0 ){
+var shortInstallDate = data[r][18];
+if(data[r][13]==''){data[r][13] = null};
+if(data[r][14]==''){data[r][14] = null};
+if(data[r][15]==''){data[r][15] = null};
+if(data[r][16]==''){data[r][16] = null};
+if(data[r][17]==''){data[r][17] = null};
+if(data[r][18]==''){data[r][18] = null};
+if(data[r][48]==''){data[r][48] = null};
+if(data[r][51]==''){data[r][51] = null};
+if(data[r][53]==''){data[r][53] = null};
+if(data[r][54]==''){data[r][54] = null};
+
+Backendless.Data.of( "t32_customer_data" ).save( { 
+//objectId:data[r][0],
+CustomerAccountId:data[r][0]
+,MonitoringID:data[r][1]
+,CustomerName:data[r][2]
+,Address1:data[r][3]
+,Zip:data[r][4]
+,Company:data[r][5]
+,City:data[r][6]
+,LongCity:data[r][7]
+,County:data[r][8]
+,State:data[r][9]
+,Phone1:data[r][10]
+,Email:data[r][11]
+,Area:data[r][12]
+,SaleDate:data[r][13]
+,InstallDate:data[r][14]
+,InstallTimeRangeStart:data[r][15]
+,InstallTimeRangeEnd:data[r][16]
+,ShortSaleDate:data[r][17]
+,ShortInstallDate:data[r][18]
+,Season:data[r][19]
+,CustomerAccountIdName:data[r][20]
+,AccountHolderID:data[r][21]
+,AccountHolder:data[r][22]
+,MonitoringCompanyID:data[r][23]
+,MonitoringCompany:data[r][24]
+,PanelTypeNameOLD:data[r][25]
+,SystemName:data[r][26]
+,SystemPackageName:data[r][27]
+,CreditScore:data[r][28]
+,StatusID:data[r][29]
+,ActivationFeeAmount:data[r][30]
+,AccountHolder1:data[r][31]
+,MonthlyMonitoringBaseRate:data[r][32]
+,SystemServicesTotal:data[r][33]
+,MonthlyMonitoringRate:data[r][34]
+,SalesRep:data[r][35]
+,Technician:data[r][36]
+,FriendsFamilyRep:data[r][37]
+,Status:data[r][38]
+,EquipmentStatus:data[r][39]
+,isAccountOnline:data[r][40]
+,isAccountInService:data[r][41]
+,CaseCount:data[r][42]
+,PointsUsedSales:data[r][43]
+,LeadSource:data[r][44]
+,LeadSourceId:data[r][45]
+,isRepAccountHold:data[r][46]
+,isTechAccountHold:data[r][47]
+,DateEntered:data[r][48]
+,QA:data[r][49]
+,QA2:data[r][50]
+,QA1Date:data[r][51]
+,QualityScore:data[r][52]
+,PreScreenDate:data[r][53]
+,FullReportDate:data[r][54]
+,ContractTerm:data[r][55]
+,BillingMethod:data[r][56]
+,Takeover:data[r][57]
+      } )
+          .then( function( obj ) {
+              console.log( "object saved. objectId " + obj.objectId )
+          } )
+          .catch( function( error ) {
+              console.log( "got error - " + error )
+          })
+    }
+  }
+}
+}
+
+  </script>
+
+
+    <body>
+		<div class="loading style-2">
+			<div class="loading-text">0%</div>
+			<div class="loading-wheel"></div>
+		</div>
+        <!-- Aside Start-->
+        <aside class="left-panel collapsed">
+
+            <!-- brand -->
+            <div class="logo">
+                <a href="index.html" class="logo-expanded">
+                    <img src="https://rawgit.com/mjbertken/blackhat/master/img/single-logo.png" alt="logo">
+                    <span class="nav-label">Velonic</span>
+                </a>
+            </div>
+            <!-- / brand -->
+        
+            <!-- Navbar Start -->
+            <nav class="navigation">
+                <ul class="list-unstyled">
+                    <li class="has-submenu active"><a href="#"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a>
+                        <ul class="list-unstyled">
+                            <li class="active"><a href="index.html">Dashboard v1</a></li>
+                            <li><a href="dashboard2.html">Dashboard v2</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu"><a><i class="ion-calendar"></i> <span class="nav-label">Dates</span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="tables.html">Basic Tables</a></li>
+                            <li><a href="table-datatable.html">Data Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu"><a href="#"><i class="ion-flask"></i> <span class="nav-label">UI Elements</span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="typography.html">Typography</a></li>
+                            <li><a href="buttons.html">Buttons</a></li>
+                            <li><a href="icons.html">Icons</a></li>
+                            <li><a href="panels.html">Panels</a></li>
+                            <li><a href="tabs-accordions.html">Tabs &amp; Accordions</a></li>
+                            <li><a href="modals.html">Modals</a></li>
+                            <li><a href="bootstrap-ui.html">BS Elements</a></li>
+                            <li><a href="progressbars.html">Progress Bars</a></li>
+                            <li><a href="notification.html">Notification</a></li>
+                            <li><a href="sweet-alert.html">Sweet-Alert</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu"><a href="#"><i class="ion-settings"></i> <span class="nav-label">Components</span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="portlets.html">Portlets</a></li>
+                            <li><a href="widgets.html">Widgets</a></li>
+                            <li><a href="nestable-list.html">Nesteble</a></li>
+                            <li><a href="calendar.html">Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu"><a href="#"><i class="ion-compose"></i> <span class="nav-label">Forms</span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="form-elements.html">General Elements</a></li>
+                            <li><a href="form-validation.html">Form Validation</a></li>
+                            <li><a href="form-advanced.html">Advanced Form</a></li>
+                            <li><a href="form-wizard.html">Form Wizard</a></li>
+                            <li><a href="form-editor.html">WYSIWYG Editor</a></li>
+                            <li><a href="code-editor.html">Code Editors</a></li>
+                            <li><a href="form-uploads.html">Multiple File Upload</a></li>
+                            <li><a href="image-crop.html">Image Crop</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu"><a href="#"><i class="ion-grid"></i> <span class="nav-label">Data Tables</span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="tables.html">Basic Tables</a></li>
+                            <li><a href="table-datatable.html">Data Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu"><a href="#"><i class="ion-stats-bars"></i> <span class="nav-label">Charts</span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="morris-chart.html">Morris Chart</a></li>
+                            <li><a href="chartjs.html">Chartjs</a></li>
+                            <li><a href="flot-chart.html">Flot Chart</a></li>
+                            <li><a href="rickshaw-chart.html">Rickshaw Chart</a></li>
+                            <li><a href="c3-chart.html">C3 Chart</a></li>
+                            <li><a href="other-chart.html">Other Chart</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu"><a href="#"><i class="ion-email"></i> <span class="nav-label">Mail</span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="inbox.html">Inbox</a></li>
+                            <li><a href="email-compose.html">Compose Mail</a></li>
+                            <li><a href="email-read.html">View Mail</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu"><a href="#"><i class="ion-location"></i> <span class="nav-label">Maps</span></a>
+                        <ul class="list-unstyled">
+                            <li><a href="gmap.html"> Google Map</a></li>
+                            <li><a href="vector-map.html"> Vector Map</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu"><a href="#"><i class="ion-document"></i> <span class="nav-label">Pages</span></a>
+                        <ul class="list-unstyled">
+                            <li><a onclick="calculate()">Profile</a></li>
+                            <li><a href="timeline.html">Timeline</a></li>
+                            <li><a href="invoice.html">Invoice</a></li>
+                            <li><a href="contact.html">Contact-list</a></li>
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="register.html">Register</a></li>
+                            <li><a href="recoverpw.html">Recover Password</a></li>
+                            <li><a href="lock-screen.html">Lock Screen</a></li>
+                            <li><a href="blank.html">Blank Page</a></li>
+                            <li><a href="404.html">404 Error</a></li>
+                            <li><a href="404_alt.html">404 alt</a></li>
+                            <li><a href="500.html">500 Error</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+                
+        </aside>
+        <!-- Aside Ends-->
+
+
+        <!--Main Content Start -->
+        <section class="content">
+            
+            <!-- Header -->
+            <header class="top-head container-fluid">
+                <button type="button" class="navbar-toggle pull-left">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+                <!-- Search -->
+                <form role="search" class="navbar-left app-search pull-left hidden-xs">
+                  <input type="text" placeholder="Search..." class="form-control">
+                </form>
+                
+                <!-- Left navbar -->
+                <nav class=" navbar-default hidden-xs" role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                          <a data-toggle="dropdown" class="dropdown-toggle" href="#">English <span class="caret"></span></a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a href="#">German</a></li>
+                                <li><a href="#">French</a></li>
+                                <li><a href="#">Italian</a></li>
+                                <li><a href="#">Spanish</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Files</a></li>
+                        <li><a element-tog="#date-div" class="ion-calendar"> <span>12/28/2017 - 01/07/2018</span></a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Right navbar -->
+                <ul class="list-inline navbar-right top-menu top-right-menu">  
+                    <!-- mesages -->  
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="fa fa-envelope-o "></i>
+                            <span class="badge badge-sm up bg-purple count">4</span>
+                        </a>
+                        <ul class="dropdown-menu extended fadeInUp animated nicescroll" tabindex="5001">
+                            <li>
+                                <p>Messages</p>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="pull-left"><img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-2.jpg" class="img-circle thumb-sm m-r-15" alt="img"></span>
+                                    <span class="block"><strong>John smith</strong></span>
+                                    <span class="media-body block">New tasks needs to be done<br><small class="text-muted">10 seconds ago</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="pull-left"><img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-3.jpg" class="img-circle thumb-sm m-r-15" alt="img"></span>
+                                    <span class="block"><strong>John smith</strong></span>
+                                    <span class="media-body block">New tasks needs to be done<br><small class="text-muted">3 minutes ago</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="pull-left"><img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-4.jpg" class="img-circle thumb-sm m-r-15" alt="img"></span>
+                                    <span class="block"><strong>John smith</strong></span>
+                                    <span class="media-body block">New tasks needs to be done<br><small class="text-muted">10 minutes ago</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <p><a href="inbox.html" class="text-right">See all Messages</a></p>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- /messages -->
+                    <!-- Notification -->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="badge badge-sm up bg-pink count">3</span>
+                        </a>
+                        <ul class="dropdown-menu extended fadeInUp animated nicescroll" tabindex="5002">
+                            <li class="noti-header">
+                                <p>Notifications</p>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="pull-left"><i class="fa fa-user-plus fa-2x text-info"></i></span>
+                                    <span>New user registered<br><small class="text-muted">5 minutes ago</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="pull-left"><i class="fa fa-diamond fa-2x text-primary"></i></span>
+                                    <span>Use animate.css<br><small class="text-muted">5 minutes ago</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="pull-left"><i class="fa fa-bell-o fa-2x text-danger"></i></span>
+                                    <span>Send project demo files to client<br><small class="text-muted">1 hour ago</small></span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <p><a href="#" class="text-right">See all notifications</a></p>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- /Notification -->
+
+                    <!-- user login dropdown start-->
+                    <li class="dropdown text-center">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-2.jpg" class="img-circle profile-img thumb-sm">
+                            <span class="username">John Deo </span> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu extended pro-menu fadeInUp animated" tabindex="5003" style="overflow: hidden; outline: none;">
+                            <li><a href="profile.html"><i class="fa fa-briefcase"></i>Profile</a></li>
+                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="#"><i class="fa fa-bell"></i> Friends <span class="label label-info pull-right mail-info">5</span></a></li>
+                            <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->       
+                </ul>
+                <!-- End right navbar -->
+
+            </header>
+            <!-- Header Ends -->
+
+
+            <!-- Page Content Start -->
+            <!-- ================== -->
+<style>
+div.date-input div.input-group span:first-child{
+  font-weight: bold;
+}
+div.date-input input[disabled]{
+cursor: pointer;
+border: none;
+border-radius: 0px;
+width: 100px;
+text-align: center;
+border-bottom: 1px solid blue;
+}
+
+</style>
+            <div class="wraper container-fluid">
+                <div class="page-title"> 
+                    <h3 class="title">Welcome !</h3> 
+                </div>
+				<div id="date-div" style="display:none;">
+                <div class="row" style="margin-bottom:10px;">
+                  <div class="col-xs-2">
+                      <button class="btn btn-block btn-default" onclick="calculate()">Submit</button>
+                  </div>
+                  <div class="col-xs-2">
+                      <button class="btn btn-block btn-default">Cancel</button>
+                  </div>
+                </div>
+                <div class="row" style="margin-bottom:10px;">
+                  <div class="col-xs-2">
+                    <select class="form-control" id="date-preset">
+							<option date-type="all" desc="All">All</option>
+							<option date-type="custom" desc="Custom">Custom</option>
+							<option date-type="day" desc="Today">Today</option>
+							<option date-type="3" desc="3 Days">3 Days</option>
+							<option date-type="week" desc="Week">Week</option>
+							<option date-type="7" desc="7 Days">7 Days</option>
+							<option date-type="10" desc="10 Days">10 Days</option>
+							<option date-type="14" desc="14 Days">14 Days</option>
+							<option date-type="21" desc="21 Days">21 Days</option>
+							<option date-type="month" desc="Month">Month</option>
+							<option date-type="30" desc="30 Days">30 Days</option>
+							<option date-type="45" desc="45 Days">45 Days</option>
+							<option date-type="60" desc="60 Days" selected>60 Days</option>
+							<option date-type="quarter" desc="Quarter">Quarter</option>
+							<option date-type="90" desc="90 Days">90 Days</option>
+							<option date-type="120" desc="120 Days">120 Days</option>
+							<option date-type="180" desc="180 Days">180 Days</option>
+							<option date-type="year" desc="Year">Year</option>
+							<option date-type="365" desc="365 Days">365</option>
+                    </select>
+                  </div>
+                  <div class="col-xs-2">
+                    <select class="form-control" id="date-enforce-col-orion">
+                    </select>
+                  </div>
+                </div>
+                <div class="row" style="margin-bottom:10px;">
+                  <div class="col-xs-5">
+                    <div class="date-input">
+                      <div class="input-group">
+                        <span class="input-group-addon" style="padding-right:20px;">Current Period</span>
+                        <span class="input-group-addon">Start</span>
+                        <input type="text" class="form-control datepicker" placeholder="mm/dd/yyyy" id="start-date">
+                        <span class="input-group-addon">End</span>
+                        <input type="text" class="form-control datepicker" placeholder="mm/dd/yyyy" id="end-date">
+                      </div>
+                    </div>
+                    <div class="date-input">
+                      <div class="input-group">
+                        <span class="input-group-addon">Compare Period</span>
+                        <span class="input-group-addon">Start</span>
+                        <input type="text" class="form-control datepicker" placeholder="mm/dd/yyyy" id="compare-start-date">
+                        <span class="input-group-addon">End</span>
+                        <input type="text" class="form-control datepicker" placeholder="mm/dd/yyyy" id="compare-end-date">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+				</div>
+<style>
+div.widget-panel span.comp-period{
+font-weight: 300;
+}
+div.widget-panel div.widget-panel-label{
+    font-size: 28px;
+}
+/*
+div.widget-panel div.comp-div{
+    font-size: 30px;
+    float: right;
+    padding: 30px;
+    margin-top: -40px;
+    margin-right: -20px;
+    color: #edf0f0;
+    background: rgba(255,255,255,0.2)
+}
+*/
+div.mini-stat{
+color: #fff;
+background-color: #2a3843;
+padding: 10px;
+}
+div.mini-stat.bad{
+  background-color:rgba(255, 20, 20, 0.8);
+}
+div.mini-stat.good{
+  background-color:rgba(51, 184, 108, 0.8);
+}
+div.mini-stat span.cur{
+  display: inline;
+  padding-left: 6px;
+  font-size: 20px;
+  font-weight: 600; 
+  line-height: 1.4;
+}
+div.mini-stat span.mini-stat-info-label{
+  font-size: 20px;
+  font-weight: 300; 
+  line-height: 1.4;
+}
+div.mini-stat span.comp,
+div.mini-stat span.pct-sm{
+  display: block;
+  font-size: 16px;
+  font-weight: 300; 
+}
+div.mini-stat span.chg{
+  font-weight: 500; 
+}
+
+div.mini-stat span.comp::before{
+content: 'No change ';
+}
+div.mini-stat.up span.chg::before{
+content: 'Up ';
+font-weight: 300;
+}
+div.mini-stat.down span.chg::before{
+content: 'Down ';
+font-weight: 300;
+}
+div.mini-stat.up span.comp::before{
+content: ' from ';
+}
+div.mini-stat.down span.comp::before{
+content: ' from ';
+}
+
+.mini-stat select{
+  font-size:16px;
+  position: absolute;
+  display:inline;
+  top:0;
+  left:10px;
+  border: 0px solid transparent;
+  background: transparent;
+}
+.mini-stat select option{
+  background-color: darkgray;
+}
+</style>
+
+
+                <div class="row widget-row">
+                    <div class="col-lg-2 col-sm-4">
+                        <div class="mini-stat clearfix" widget-type="sessions">
+                            <select class="scope">
+                                <option>ARI</option>
+                                <option>USA</option>
+                                <option>GLB</option>
+                            </select>
+                            <div class="mini-stat-info text-right">
+                                <span class="mini-stat-info-label">Sessions<span class="counter cur"></span></span> <span class="chg pct-sm counter" style="display:inline;"></span><span class="counter comp" style="display:inline;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-4">
+                        <div class="mini-stat clearfix" widget-type="pageviews">
+                            <select class="scope">
+                                <option>ARI</option>
+                                <option>USA</option>
+                                <option>GLB</option>
+                            </select>
+                            <div class="mini-stat-info text-right">
+                                <span class="mini-stat-info-label">Page Views<span class="counter cur"></span></span> <span class="chg pct-sm counter" style="display:inline;"></span><span class="counter comp" style="display:inline;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-4">
+                        <div class="mini-stat clearfix" widget-type="bouncerate">
+                            <select class="scope">
+                                <option>ARI</option>
+                                <option>USA</option>
+                                <option>GLB</option>
+                            </select>
+                            <div class="mini-stat-info text-right">
+                                <span class="mini-stat-info-label">Bounce Rate<span class="counter cur"></span></span> <span class="chg pct-sm counter" style="display:inline;"></span><span class="counter comp" style="display:inline;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-4">
+                        <div class="mini-stat clearfix" widget-type="in-mkt-traffic">
+                            <div class="mini-stat-info text-right">
+                                <span class="mini-stat-info-label">In Market Traffic<span class="counter cur pct"></span></span> <span class="chg pct-sm counter" style="display:inline;"></span><span class="counter comp pct-sm" style="display:inline;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-4">
+                        <div class="mini-stat down bad clearfix" widget-type="referral-leads-pct">
+                            <div class="mini-stat-info text-right">
+                                <span class="mini-stat-info-label">Referral Leads<span class="counter cur">5,210</span></span> <span class="chg pct-sm counter" style="display:inline;">22</span><span class="counter comp" style="display:inline;">5210</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-4">
+                        <div class="mini-stat down bad clearfix" widget-type="cs-avg">
+                            <div class="mini-stat-info text-right">
+                                <span class="mini-stat-info-label">Credit Score Avg<span class="counter cur">5,210</span></span> <span class="chg pct-sm counter" style="display:inline;">22</span><span class="counter comp" style="display:inline;">5210</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+
+
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    Weekly Sales Report
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet1"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet1" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <div id="morris-bar-example"  style="height: 320px;"></div>
+
+                                    <div class="row text-center m-t-30 m-b-30">
+                                        <div class="col-sm-3 col-xs-6" data="today-sessions" scope="ari">
+                                            <h4 class="ari"></h4>
+                                            <h4 class="usa"></h4>
+                                            <h4 class="all"></h4>
+                                            <small class="text-muted">Today's Sessions</small>
+                                        </div>
+                                        <div class="col-sm-3 col-xs-6" data="week-sessions" scope="ari">
+                                          <h4></h4>
+                                          <small class="text-muted">This Week's Sessions</small>
+                                        </div>
+                                        <div class="col-sm-3 col-xs-6" data="today-sessions" scope="ari">
+                                            <h4></h4>
+                                            <small class="text-muted">This Month's Sales</small>
+                                        </div>
+                                        <div class="col-sm-3 col-xs-6" data="today-sessions" scope="ari">
+                                            <h4></h4>
+                                            <small class="text-muted">This Year's Sales</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- /Portlet -->
+
+                    </div> <!-- end col -->
+
+<style>
+div[scope=ari] small.text-muted:after,
+div[scope=usa] small.text-muted:after,
+div[scope=all] small.text-muted:after{
+display:block;
+margin-top: 6px;
+}
+div[scope=ari] small.text-muted:after{content: 'Arizona';}
+div[scope=usa] small.text-muted:after{content: 'USA';}
+div[scope=all] small.text-muted:after{content: 'Global';}
+h4.ari,h4.usa,h4.all{display:none;}
+div[scope=ari] h4.ari{display:block;}
+div[scope=usa] h4.usa{display:block;}
+div[scope=all] h4.all{display:block;}
+</style>
+
+                    <div class="col-lg-4">
+                        <div class="portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    Yearly Sales Report
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet2"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet2" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <div id="morris-line-example" style="height: 200px;"></div>
+                                    <div class="row text-center m-t-30">
+                                <div class="col-sm-4">
+                                    <h4>$ 86,956</h4>
+                                    <small class="text-muted"> This Year's Report</small>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4>$ 86,69</h4>
+                                    <small class="text-muted">Weekly Sales Report</small>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4>$ 948,16</h4>
+                                    <small class="text-muted">Yearly Sales Report</small>
+                                </div>
+
+                            </div>
+                                </div>
+                            </div>
+                        </div> <!-- /Portlet -->
+                        <div class="tile-stats white-bg"> 
+                            <div class="col-sm-8">
+                                <div class="status">
+                                <h3 class="m-t-15">61.5%</h3> 
+                                <p>US Dollar Share</p>
+                            </div> 
+                            </div>
+                            <div class="col-sm-4 m-t-20">
+                                <span class="sparkpie-big"><canvas width="98" height="50" style="display: inline-block; width: 98px; height: 50px; vertical-align: top;"></canvas></span> 
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End row -->
+
+
+<style>
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+.legend{
+  height: 27px;
+  text-align: center;
+}
+.legend-group{
+  border-radius: 4px;
+  display: inline-block;
+  line-height:14px;
+  height:14px;
+  padding:0;
+  vertical-align:middle;
+  font-size:10px;
+  cursor:pointer;
+}
+.legend-group .legend-color-block{
+  display:inline-block;
+  width:14px;
+  height:14px;
+  border: 2px solid black;
+  border-radius: 2px 2px 0px 2px;
+  opacity:0.7;
+}
+.legend-group:hover .legend-color-block{
+  opacity:1;
+}
+
+.legend-group .legend-text{
+  display: inline-block;
+  height:14px;
+  vertical-align:top;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-right:2px;
+  border-bottom: 1px solid;
+  border-color:transparent;
+}
+.legend-group:hover .legend-text{
+  border-color:inherit;
+}
+.legend-installed{
+  border-color: var(--main-installed);
+  background-color: #fff;
+  color:var(--main-installed);
+}
+.legend-installed .legend-color-block{
+  background-color: var(--main-installed);
+  border-color: var(--main-installed);
+}
+.legend-cancelled{
+  border-color: var(--main-cancelled);
+  background-color: color:#fff;
+  color:var(--main-cancelled);
+}
+.legend-cancelled .legend-color-block{
+  background-color: var(--main-cancelled);
+  border-color: var(--main-cancelled);
+}
+.legend-lead{
+  border-color: var(--main-lead);
+  background-color: color:#fff;
+  color:var(--main-lead);
+}
+.legend-lead .legend-color-block{
+  background-color: var(--main-lead);
+  border-color: var(--main-lead);
+}
+
+.legend-scheduled{
+  border-color: var(--main-scheduled);
+  background-color: color:#fff;
+  color:var(--main-scheduled);
+}
+.legend-scheduled .legend-color-block{
+  background-color: var(--main-scheduled);
+  border-color: var(--main-scheduled);
+}
+
+.legend-cancel-pending{
+  border-color: var(--main-cancel-pending);
+  background-color: color:#fff;
+  color:var(--main-cancel-pending);
+}
+.legend-cancel-pending .legend-color-block{
+  background-color: var(--main-cancel-pending);
+  border-color: var(--main-cancel-pending);
+}
+
+.legend-group[state='off'] .legend-color-block{
+  background-color: #fff;
+}
+
+.chart-portlet .portlet-body{
+  padding:0px 15px 5px 15px;
+}
+
+.ion-stats-bars{
+    border-radius: 2px;
+    padding-left: 3px;
+    padding-right: 4px;
+}
+.ion-stats-bars[state='on']{
+    background-color: #999;
+    color: #fff;
+}
+
+</style>
+<script>
+
+$("div").on('click', '.ion-stats-bars', function() {
+    var cur = $(this).attr('state');
+    if(cur=='on'){$(this).attr('state','off')}else{
+      $(this).attr('state','on')
+    }
+});
+
+$("div").on('click', '.legend-group', function() {
+    var cur = $(this).attr('state');
+    if(cur=='on'){$(this).attr('state','off')}else{
+      $(this).attr('state','on')
+    }
+});
+$("div").on('click', '#status-x-tech-portlet .legend-group', function() {
+    tech_chart();
+});
+$("div").on('click', '#leads-x-lead-source-portlet .legend-group', function() {
+    leads_by_lead_source_chart();
+});
+$("div").on('click', '#mmr-x-lead-source-portlet .legend-group', function() {
+    mmr_by_lead_source_chart();
+});
+
+$("div").on('hover', '.legend-group', function() {
+    var cur = $(this).attr('state');
+    if(cur=='on'){$(this).attr('state','off')}else{
+      $(this).attr('state','on')
+    }
+});
+$("div").on('mouseenter', '.legend-group', function() {
+    var color_class = $(this).attr('color-class');
+    $(this).parent().parent().find('.graphical-report__bar.'+color_class).css('opacity','1');
+//    $('#morris-2 .graphical-report__bar.'+color_class).css('opacity','1');
+});
+$("div").on('mouseleave', '.legend-group', function() {
+    var color_class = $(this).attr('color-class');
+    $(this).parent().parent().find('.graphical-report__bar.'+color_class).css('opacity','');
+//    $('#morris-2 .graphical-report__bar.'+color_class).css('opacity','');
+});
+
+</script>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <!-- Chat -->
+                        <div class="portlet chart-portlet" id="status-x-tech-portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    Status by Technician
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-stats-bars" onclick="change_tech_chart_type()"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh" onclick="tech_chart()"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-3"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet-3" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <div class="legend">
+                                    </div>
+                                    <div id="morris-2" class="chart-div"  style="height: 320px;"></div>
+                                </div>
+                            </div>
+                        </div> <!-- end Chat -->
+                    </div> <!-- end col-->
+                    
+                    <div class="col-lg-4">
+                        <!-- Chat -->
+                        <div class="portlet chart-portlet" id="leads-x-lead-source-portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    Leads by Lead Source
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-stats-bars" onclick="change_leads_by_lead_source_chart_type()"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh" onclick="leads_by_lead_source_chart()"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-3"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet-3" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <div class="legend">
+                                    </div>
+                                    <div class="chart-div"  style="height: 640px;"></div>
+                                </div>
+                            </div>
+                        </div> <!-- end Chat -->
+                    </div> <!-- end col-->
+
+                    <div class="col-lg-4">
+                        <!-- Chat -->
+                        <div class="portlet chart-portlet" id="mmr-x-lead-source-portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    MMR by Lead Source
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-stats-bars" onclick="change_mmr_by_lead_source_chart_type()"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh" onclick="mmr_by_lead_source_chart()"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-3"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet-3" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <div class="legend">
+                                    </div>
+                                    <div class="chart-div"  style="height: 640px;"></div>
+                                </div>
+                            </div>
+                        </div> <!-- end Chat -->
+                    </div> <!-- end col-->
+
+                    <div class="col-lg-4">
+
+                        <!-- Chat -->
+                        <div class="portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    c3
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh" onclick="testRotated()"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-3"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet-3" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <div id="roated-chart"  style="height: 320px;"></div>
+                                </div>
+                            </div>
+                        </div> <!-- end Chat -->
+                    </div> <!-- end col-->
+
+                    <div class="col-lg-4">
+
+                        <!-- TODO -->
+                        <div class="portlet" id="todo-container"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    Todo
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-5" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet-5" class="panel-collapse collapse in">
+                                <div class="portlet-body todoapp">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h4 id="todo-message"><span id="todo-remaining"></span> of <span id="todo-total"></span> remaining</h4> 
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="" class="pull-right btn btn-primary btn-sm" id="btn-archive">Archive</a>
+                                        </div>
+                                    </div>
+
+                                    <ul class="list-group no-margn nicescroll todo-list" style="max-height: 275px;" id="todo-list"></ul>
+
+                                     <form name="todo-form" id="todo-form" role="form" class="m-t-20">
+                                        <div class="row">
+                                            <div class="col-sm-9 todo-inputbar">
+                                                <input type="text" id="todo-input-text" name="todo-input-text" class="form-control" placeholder="Add new todo">
+                                            </div>
+                                            <div class="col-sm-3 todo-send">
+                                                <button class="btn-info btn-block btn" type="button" id="todo-btn-submit">Add</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+
+                    <div class="col-lg-4">
+
+                        <!-- Team-Member -->
+                        <div class="portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    Team Members
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-6" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet-6" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <ul class="list-group list-group-lg">
+                                        <li class="list-group-item b-0">
+                                            <a href="" class=" m-r-10">
+                                              <img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-3.jpg" class="thumb-sm br-radius">
+                                            </a>
+                                            <span class="pull-right label bg-primary inline m-t-10">CEO</span>
+                                            <a href="">Jonathan Deo</a>
+                                        </li>
+                                        <li class="list-group-item b-0">
+                                            <a href="" class=" m-r-10">
+                                              <img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-4.jpg" class="thumb-sm br-radius">
+                                            </a>
+                                            <span class="pull-right label bg-info inline m-t-10">Webdesigner</span>
+                                            <a href="">Doler Perte</a>
+                                        </li>
+                                        <li class="list-group-item b-0">
+                                            <a href="" class=" m-r-10">
+                                              <img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-5.jpg" class="thumb-sm br-radius">
+                                            </a>
+                                            <span class="pull-right label bg-warning inline m-t-10">Webdeveloper</span>
+                                            <a href="">Jannie Dvis</a>
+                                        </li>
+                                        <li class="list-group-item b-0">
+                                            <a href="" class=" m-r-10">
+                                              <img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-6.jpg" class="thumb-sm br-radius">
+                                            </a>
+                                            <span class="pull-right label bg-pink inline m-t-10">Programmer</span>
+                                            <a href="">Emma Welson</a>
+                                        </li>
+                                        <li class="list-group-item b-0">
+                                            <a href="" class=" m-r-10">
+                                              <img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-7.jpg" class="thumb-sm br-radius">
+                                            </a>
+                                            <span class="pull-right label bg-warning inline m-t-10">Webdeveloper</span>
+                                            <a href="">Jannie Dvis</a>
+                                        </li>
+                                        <li class="list-group-item b-0">
+                                            <a href="" class=" m-r-10">
+                                              <img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-8.jpg" class="thumb-sm br-radius">
+                                            </a>
+                                            <span class="pull-right label bg-info inline m-t-10">Webdesigner</span>
+                                            <a href="">Petere Husen</a>
+                                        </li>
+                                        <li class="list-group-item b-0">
+                                            <a href="" class=" m-r-10">
+                                              <img src="https://rawgit.com/mjbertken/blackhat/master/img/avatar-9.jpg" class="thumb-sm br-radius">
+                                            </a>
+                                            <span class="pull-right label bg-warning inline m-t-10">Webdeveloper</span>
+                                            <a href="">John Deo</a>
+                                        </li>
+                                    </ul>
+                                </div> <!-- end portlet-body -->
+                            </div> <!-- end portlet-collapsed -->
+                        </div> <!-- end portlet/Team-member -->
+                    </div> <!-- end col -->
+                </div> <!-- End row -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    Sales Reps
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-srep" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet-srep" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <ul class="list-group list-group-lg">
+                                    </ul>
+                                </div> <!-- end portlet-body -->
+                            </div> <!-- end portlet-collapsed -->
+                        </div> <!-- end portlet/Team-member -->
+                    </div> <!-- end col -->
+                    <div class="col-lg-4">
+                        <div class="portlet"><!-- /primary heading -->
+                            <div class="portlet-heading">
+                                <h3 class="portlet-title text-dark text-uppercase">
+                                    Technicians
+                                </h3>
+                                <div class="portlet-widgets">
+                                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                                    <span class="divider"></span>
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#portlet-tech" class="" aria-expanded="true"><i class="ion-minus-round"></i></a>
+                                    <span class="divider"></span>
+                                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="portlet-tech" class="panel-collapse collapse in">
+                                <div class="portlet-body">
+                                    <ul class="list-group list-group-lg">
+                                    </ul>
+                                </div> <!-- end portlet-body -->
+                            </div> <!-- end portlet-collapsed -->
+                        </div> <!-- end portlet/Team-member -->
+                    </div> <!-- end col -->
+                </div> <!-- End row -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="portlet" id='orion-data-table-portlet' style="display:none;">
+			<!-- /primary heading -->
+			<div class="portlet-heading">
+				<h3 class="portlet-title text-dark text-uppercase">Orion Data Table</h3>
+				<div class="portlet-widgets">
+					<a data-target="#orion-modal" data-toggle="modal" onclick="build_orion_modal()"><i class="ion-funnel"></i></a> <span class="divider"></span> <a data-toggle="reload" href="javascript:;"><i class="ion-refresh"></i></a> <span class="divider"></span> <a aria-expanded="false" class="collapsed" data-parent="#accordion1" data-toggle="collapse" href="#portlet7"><i class="ion-minus-round"></i></a> <span class="divider"></span> <a data-toggle="remove" href="#"><i class="ion-close-round"></i></a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div aria-expanded="false" class="panel-collapse collapse" id="portlet7" style="height:0px;">
+				<div class="portlet-body">
+					<div class="table-responsive">
+						<table class="table table-slim orion-table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Project Name</th>
+									<th>Start Date</th>
+									<th>Due Date</th>
+									<th>Status</th>
+									<th>Assign</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>8</td>
+									<td>Velonic Admin v1.3</td>
+									<td>01/01/2015</td>
+									<td>31/05/2015</td>
+									<td><span class="label label-warning">Coming soon</span></td>
+									<td>Coderthemes</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!-- End row -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="portlet" id='ga-data-table-portlet' style="display:none;">
+			<!-- /primary heading -->
+			<div class="portlet-heading">
+				<h3 class="portlet-title text-dark text-uppercase">Google Analytics Data Table</h3>
+				<div class="portlet-widgets">
+					<a data-target="#ga-modal" data-toggle="modal" onclick="build_ga_modal()"><i class="ion-funnel"></i></a> <span class="divider"></span> <a data-toggle="reload" href="javascript:;"><i class="ion-refresh"></i></a> <span class="divider"></span> <a aria-expanded="false" class="collapsed" data-parent="#accordion1" data-toggle="collapse" href="#portlet-ga"><i class="ion-minus-round"></i></a> <span class="divider"></span> <a data-toggle="remove" href="#"><i class="ion-close-round"></i></a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div aria-expanded="false" class="panel-collapse collapse" id="portlet-ga" style="height:0px;">
+				<div class="portlet-body">
+					<div class="table-responsive">
+						<table class="table table-slim ga-table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Project Name</th>
+									<th>Start Date</th>
+									<th>Due Date</th>
+									<th>Status</th>
+									<th>Assign</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>8</td>
+									<td>Velonic Admin v1.3</td>
+									<td>01/01/2015</td>
+									<td>31/05/2015</td>
+									<td><span class="label label-warning">Coming soon</span></td>
+									<td>Coderthemes</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!-- End row -->
+            </div>
+            
+<!-- Custom Modals -->
+
+
+
+<style>
+div.modal div.included > button.btn,
+div.modal div.excluded > button.btn{
+display:none;
+}
+div.modal div.included > button.btn[included=true],
+div.modal div.excluded > button.btn[included=false]{
+display:block;
+margin-top: 0 !important;
+}
+table *.no-show{
+display:none;
+}
+.pct:after {
+  content: '%';
+}
+.pct-sm:after{
+  content: '%';
+  font-size: 0.5em;
+}
+</style>
+
+
+<div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> 
+                                <h3 class="panel-title">Custom Modals</h3> 
+                            </div> 
+                            <div class="panel-body"> 
+                            
+                              <div id="orion-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog"> 
+                                        <div class="modal-content"> 
+                                            <div class="modal-header"> 
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
+                                                <h4 class="modal-title">Modal Content is Responsive</h4> 
+                                            </div> 
+                                            <div class="modal-body"> 
+                                              <div class="row">
+                                                <div class="col-xs-6">
+                                                  Displayed
+                                                </div>
+                                                <div class="col-xs-6">
+                                                  Hidden
+                                                </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="col-xs-6 included">
+                                                  <button class="btn btn-block btn-success btn-sm m-b-5">Small button</button>
+                                                </div>
+                                                <div class="col-xs-6 excluded">
+                                                  <button class="btn btn-block btn-success btn-sm m-b-5">Small button</button>
+                                                </div>
+                                              </div>
+
+                                            </div> 
+                                            <div class="modal-footer"> 
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button> 
+                                                <button type="button" class="btn btn-info">Save changes</button> 
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                </div><!-- /.modal -->
+                            
+                            
+                                <!-- sample modal content -->
+
+                                <div id="custom-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog" style="width:55%;">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title" id="custom-width-modalLabel">Modal Heading</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Text in a modal</h4>
+                                                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                                                <hr>
+                                                <h4>Overflowing text to show scroll behavior</h4>
+                                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+                                <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-full">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h4 class="modal-title" id="full-width-modalLabel">Modal Heading</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Text in a modal</h4>
+                                                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                                                <hr>
+                                                <h4>Overflowing text to show scroll behavior</h4>
+                                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+                                <div id="con-close-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog"> 
+                                        <div class="modal-content"> 
+                                            <div class="modal-header"> 
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
+                                                <h4 class="modal-title">Modal Content is Responsive</h4> 
+                                            </div> 
+                                            <div class="modal-body"> 
+                                                <div class="row"> 
+                                                    <div class="col-md-6"> 
+                                                        <div class="form-group"> 
+                                                            <label for="field-1" class="control-label">Name</label> 
+                                                            <input type="text" class="form-control" id="field-1" placeholder="John"> 
+                                                        </div> 
+                                                    </div> 
+                                                    <div class="col-md-6"> 
+                                                        <div class="form-group"> 
+                                                            <label for="field-2" class="control-label">Surname</label> 
+                                                            <input type="text" class="form-control" id="field-2" placeholder="Doe"> 
+                                                        </div> 
+                                                    </div> 
+                                                </div> 
+                                                <div class="row"> 
+                                                    <div class="col-md-12"> 
+                                                        <div class="form-group"> 
+                                                            <label for="field-3" class="control-label">Address</label> 
+                                                            <input type="text" class="form-control" id="field-3" placeholder="Address"> 
+                                                        </div> 
+                                                    </div> 
+                                                </div> 
+                                                <div class="row"> 
+                                                    <div class="col-md-4"> 
+                                                        <div class="form-group"> 
+                                                            <label for="field-4" class="control-label">City</label> 
+                                                            <input type="text" class="form-control" id="field-4" placeholder="Boston"> 
+                                                        </div> 
+                                                    </div> 
+                                                    <div class="col-md-4"> 
+                                                        <div class="form-group"> 
+                                                            <label for="field-5" class="control-label">Country</label> 
+                                                            <input type="text" class="form-control" id="field-5" placeholder="United States"> 
+                                                        </div> 
+                                                    </div> 
+                                                    <div class="col-md-4"> 
+                                                        <div class="form-group"> 
+                                                            <label for="field-6" class="control-label">Zip</label> 
+                                                            <input type="text" class="form-control" id="field-6" placeholder="123456"> 
+                                                        </div> 
+                                                    </div> 
+                                                </div> 
+                                                <div class="row"> 
+                                                    <div class="col-md-12"> 
+                                                        <div class="form-group no-margin"> 
+                                                            <label for="field-7" class="control-label">Personal Info</label> 
+                                                            <textarea class="form-control autogrow" id="field-7" placeholder="Write something about yourself" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;">                                                        </textarea> 
+                                                        </div> 
+                                                    </div> 
+                                                </div> 
+                                            </div> 
+                                            <div class="modal-footer"> 
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button> 
+                                                <button type="button" class="btn btn-info">Save changes</button> 
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                </div><!-- /.modal -->
+
+                                <div id="tabs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content p-0">
+                                            <ul class="nav nav-tabs nav-justified">
+                                                <li class="">
+                                                    <a href="#home-2" data-toggle="tab" aria-expanded="false"> 
+                                                        <span class="visible-xs"><i class="fa fa-home"></i></span> 
+                                                        <span class="hidden-xs">Home</span> 
+                                                    </a> 
+                                                </li> 
+                                                <li class=""> 
+                                                    <a href="#profile-2" data-toggle="tab" aria-expanded="false"> 
+                                                        <span class="visible-xs"><i class="fa fa-user"></i></span> 
+                                                        <span class="hidden-xs">Profile</span> 
+                                                    </a> 
+                                                </li> 
+                                                <li class="active"> 
+                                                    <a href="#messages-2" data-toggle="tab" aria-expanded="true"> 
+                                                        <span class="visible-xs"><i class="fa fa-envelope-o"></i></span> 
+                                                        <span class="hidden-xs">Messages</span> 
+                                                    </a> 
+                                                </li> 
+                                                <li class=""> 
+                                                    <a href="#settings-2" data-toggle="tab" aria-expanded="false"> 
+                                                        <span class="visible-xs"><i class="fa fa-cog"></i></span> 
+                                                        <span class="hidden-xs">Settings</span> 
+                                                    </a> 
+                                                </li> 
+                                            </ul> 
+                                            <div class="tab-content"> 
+                                                <div class="tab-pane" id="home-2"> 
+                                                    <div> 
+                                                        <p>Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in. Would day nor ask walls known. But preserved advantage are but and certainty earnestly enjoyment. Passage weather as up am exposed. And natural related man subject. Eagerness get situation his was delighted. </p> 
+                                                        <p>Fulfilled direction use continual set him propriety continued. Saw met applauded favourite deficient engrossed concealed and her. Concluded boy perpetual old supposing. Farther related bed and passage comfort civilly. Dashwoods see frankness objection abilities the. As hastened oh produced prospect formerly up am. Placing forming nay looking old married few has. Margaret disposed add screened rendered six say his striking confined. </p> 
+                                                    </div> 
+                                                </div> 
+                                                <div class="tab-pane" id="profile-2">
+                                                    <p>Fulfilled direction use continual set him propriety continued. Saw met applauded favourite deficient engrossed concealed and her. Concluded boy perpetual old supposing. Farther related bed and passage comfort civilly. Dashwoods see frankness objection abilities the. As hastened oh produced prospect formerly up am. Placing forming nay looking old married few has. Margaret disposed add screened rendered six say his striking confined. </p> 
+                                                    <p>When be draw drew ye. Defective in do recommend suffering. House it seven in spoil tiled court. Sister others marked fat missed did out use. Alteration possession dispatched collecting instrument travelling he or on. Snug give made at spot or late that mr. </p> 
+                                                </div> 
+                                                <div class="tab-pane active" id="messages-2">
+                                                    <p>When be draw drew ye. Defective in do recommend suffering. House it seven in spoil tiled court. Sister others marked fat missed did out use. Alteration possession dispatched collecting instrument travelling he or on. Snug give made at spot or late that mr. </p> 
+                                                    <p>Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in. Would day nor ask walls known. But preserved advantage are but and certainty earnestly enjoyment. Passage weather as up am exposed. And natural related man subject. Eagerness get situation his was delighted. </p> 
+                                                </div> 
+                                                <div class="tab-pane" id="settings-2">
+                                                    <p>Luckily friends do ashamed to do suppose. Tried meant mr smile so. Exquisite behaviour as to middleton perfectly. Chicken no wishing waiting am. Say concerns dwelling graceful six humoured. Whether mr up savings talking an. Active mutual nor father mother exeter change six did all. </p> 
+                                                    <p>Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in. Would day nor ask walls known. But preserved advantage are but and certainty earnestly enjoyment. Passage weather as up am exposed. And natural related man subject. Eagerness get situation his was delighted. </p> 
+                                                </div> 
+                                            </div> 
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+                                <div id="accordion-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content p-0">
+                                            <div class="panel-group panel-group-joined" id="accordion-test"> 
+                                                <div class="panel panel-default"> 
+                                                    <div class="panel-heading"> 
+                                                        <h4 class="panel-title"> 
+                                                            <a data-toggle="collapse" data-parent="#accordion-test" href="#collapseOne" class="collapsed">
+                                                                Collapsible Group Item #1
+                                                            </a> 
+                                                        </h4> 
+                                                    </div> 
+                                                    <div id="collapseOne" class="panel-collapse collapse"> 
+                                                        <div class="panel-body">
+                                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                        </div> 
+                                                    </div> 
+                                                </div> 
+                                                <div class="panel panel-default"> 
+                                                    <div class="panel-heading"> 
+                                                        <h4 class="panel-title"> 
+                                                            <a data-toggle="collapse" data-parent="#accordion-test" href="#collapseTwo">
+                                                                Collapsible Group Item #2
+                                                            </a> 
+                                                        </h4> 
+                                                    </div> 
+                                                    <div id="collapseTwo" class="panel-collapse collapse in"> 
+                                                        <div class="panel-body">
+                                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                        </div> 
+                                                    </div> 
+                                                </div> 
+                                                <div class="panel panel-default"> 
+                                                    <div class="panel-heading"> 
+                                                        <h4 class="panel-title"> 
+                                                            <a data-toggle="collapse" data-parent="#accordion-test" href="#collapseThree" class="collapsed">
+                                                                Collapsible Group Item #3
+                                                            </a> 
+                                                        </h4> 
+                                                    </div> 
+                                                    <div id="collapseThree" class="panel-collapse collapse"> 
+                                                        <div class="panel-body">
+                                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                        </div> 
+                                                    </div> 
+                                                </div> 
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+                                <div id="panel-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content p-0 b-0">
+                                            <div class="panel panel-color panel-primary">
+                                                <div class="panel-heading"> 
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
+                                                    <h3 class="panel-title">Panel Primary</h3> 
+                                                </div> 
+                                                <div class="panel-body"> 
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> 
+                                                </div> 
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+
+                                <!-- Custom width modal -->
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#custom-width-modal">Custom width Modal</button>
+                                <!-- Full width modal -->
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#full-width-modal">Full width Modal</button>
+                                <!-- Full width modal -->
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#con-close-modal">Responsive Modal</button>
+                                <!-- Full width modal -->
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#tabs-modal">Tabs in Modal</button>
+                                <!-- Full width modal -->
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#accordion-modal">Accordion in Modal</button>
+                                <!-- Full width modal -->
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#panel-modal">Panel in Modal</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <!-- Custom Modals Ends-->
+            <!-- Page Content Ends -->
+            <!-- ================== -->
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                2015 © Velonic.
+            </footer>
+            <!-- Footer Ends -->
+
+
+
+        </section>
+        <!-- Main Content Ends -->
+ <style>
+ a[aria-expanded=false] .ion-minus-round:before{
+   content:"\f217" !important;
+ }
+ </style>
+
+
+        <!-- js placed at the end of the document so the pages load faster -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/jquery.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/bootstrap.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/modernizr.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/pace.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/wow.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/jquery.scrollTo.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/jquery.nicescroll.js" type="text/javascript"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/chat/moment-2.2.1.js"></script>
+
+        <!-- Counter-up -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/waypoints.min.js" type="text/javascript"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/jquery.counterup.min.js" type="text/javascript"></script>
+
+        <!-- EASY PIE CHART JS -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/easypie-chart/easypiechart.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/easypie-chart/jquery.easypiechart.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/easypie-chart/example.js"></script>
+
+
+        <!--C3 Chart-->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/c3-chart/d3.v3.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/c3-chart/c3.js"></script>
+
+        <!--Morris Chart-->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/morris/morris.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/morris/raphael.min.js"></script>
+
+        <!-- sparkline --> 
+        <script src="https://rawgit.com/mjbertken/blackhat/master/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/sparkline-chart/chart-sparkline.js" type="text/javascript"></script> 
+
+        <!-- sweet alerts -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/sweet-alert/sweet-alert.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/sweet-alert/sweet-alert.init.js"></script>
+
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/jquery.app.js"></script>
+        <!-- Chat -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/jquery.chat.js"></script>
+        <!-- Dashboard -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/jquery.dashboard.js"></script>
+
+        <!-- Todo -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/jquery.todo.js"></script>
+
+        <!-- Modal-Effect -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/classie.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/js/modalEffects.js"></script>
+
+        <!-- Flot Chart -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/flot-chart/jquery.flot.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/flot-chart/jquery.flot.time.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/flot-chart/jquery.flot.tooltip.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/flot-chart/jquery.flot.resize.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/flot-chart/jquery.flot.pie.js"></script>
+
+        <!-- Date / Time Pickers -->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/timepicker/bootstrap-datepicker.js"></script>
+
+        <!--C3 Chart-->
+        <script src="https://rawgit.com/mjbertken/blackhat/master/c3-chart/d3.v3.min.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/c3-chart/c3.js"></script>
+        <script src="https://rawgit.com/mjbertken/blackhat/master/c3-chart/c3-chart.init.js"></script>
+
+        <script type="text/javascript">
+        /* ==============================================
+             Counter Up
+             =============================================== */
+            jQuery(document).ready(function($) {
+                $('.counter').counterUp({
+                    delay: 100,
+                    time: 1200
+                });
+                
+                // Date Picker
+                jQuery('.datepicker').datepicker();
+                jQuery('#datepicker-inline').datepicker();
+                jQuery('#datepicker-multiple').datepicker({
+                    numberOfMonths: 3,
+                    showButtonPanel: true
+                });
+                google.script.run.withSuccessHandler(success_content_util).getContent('UTILITIES.html');
+                
+               
+
+
+            });
+            function success_content_util(data) {
+              $('head').append(data);
+              google.script.run.withSuccessHandler(success_content_js).getContent('JS.html');
+            };
+            function success_content_js(data) {
+              $('head').append(data);
+//                get_orion_table();
+//                get_ga_data();
+            };
+            $('#orion-modal').on('click', 'button', function() { 
+              var inc = $(this).attr('included');
+              var dataType = $(this).attr('data-type');
+              if(inc=='true'){
+                $( "table *[data-type="+dataType+"]").addClass('no-show');
+                $( "button[data-type="+dataType+"]" ).attr('included',false);
+              }else{
+                $( "button[data-type="+dataType+"]" ).attr('included',true);
+                $( "table *[data-type="+dataType+"]").removeClass('no-show');
+              }            
+            });
+            
+function build_orion_modal(){
+$('#orion-modal div.included').empty();
+$('#orion-modal div.excluded').empty();
+  $( "table.orion-table thead th" ).each(function( index ) {
+    var btn = document.createElement('button');
+    var included = true;
+    if ( $(this).hasClass('no-show') ){included = false};
+    
+    $(btn).attr('class','btn btn-block btn-sm m-b-5');
+    $(btn).attr('included',included);
+    $(btn).html($(this).html());
+    $(btn).attr('data-type',$( this ).attr('data-type'));
+    var c = $(btn).clone();
+    $('#orion-modal div.included').append(btn);
+    $('#orion-modal div.excluded').append(c);
+  });
+
+}
+
+
+            var UNIQUE_ORION_HEADERS = [];
+            var UNIQUE_SALES_REPS = [];
+            var UNIQUE_TECHNICIANS = [];
+            var ORION_DEFAULT_VISIBLE_COLUMNS = ['CustomerName','ShortSaleDate','ShortInstallDate','SalesRep','Technician','Status','EquipmentStatus','LeadSource'];
+
+
+
+
+
+
+
+
+        </script>
+    
+
+    </body>
+</html>
+
+
+

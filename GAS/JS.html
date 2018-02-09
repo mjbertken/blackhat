@@ -1,0 +1,121 @@
+<script>
+
+
+$(document).on('click', '*[element-tog]', function() {
+console.log($(this).attr('element-tog'));
+var elm = $($(this).attr('element-tog'));
+
+if( $(elm).css('display') =='none'){
+  $(elm).slideDown();
+}else{
+  $(elm).slideUp();
+}
+});
+
+
+$(document).on('change', '#date-preset', function() {
+console.log('change');
+//	$(this).parent().parent().find('button:first()').html($(this).attr('desc'));
+//	$(this).parent().parent().find('button:first()').attr('date-type', $(this).attr('date-type'));
+//	$('#date-preset li[active=true]').attr('active', 'false');
+//	$(this).attr('active', true);
+	var dateType = $('#date-preset option:selected').attr('date-type');
+    console.log(dateType);
+	var today = jsdate_to_iso8601(new Date());
+    var todayDisplay = iso8601_to_display(today);
+    console.log(today);
+//	if (dateType == 'custom') {
+//		$('div.date-group-container').attr('locked', false);
+//	}
+//	else {
+//		$('div.date-group-container').attr('locked', true);
+//		$('div.date-group.unlocked').removeClass('unlocked');
+//	}
+//	if (dateType == 'all') {
+//		$('#start-date').val(jsdate_to_iso8601(MIN_DATE)); //'1900-01-01');
+//		$('#end-date').val(today);
+//		$('#compare-start-date').val('');
+//		$('#compare-end-date').val('');
+//	}
+	if (dateType == 'year') {
+		$('#start-date').val('01/01/'+new Date().getFullYear());
+		$('#end-date').val(todayDisplay);
+		$('#compare-start-date').val('01/01/'+ (new Date().getFullYear() - 1 ));
+		$('#compare-end-date').val(("00" + (new Date().getMonth() + 1)).substr(-2) + '/' + ("00" + (new Date().getDate())).substr(-2) + '/' + ( new Date().getFullYear() - 1 ) );
+	}
+	if (dateType == 'month') {
+		$('#start-date').val(("00" + (new Date().getMonth() + 1)).substr(-2) + '/01/' + new Date().getFullYear()  );
+		$('#end-date').val(todayDisplay);
+		var lastm = new Date();
+		lastm.setMonth(new Date().getMonth() - 1);
+		$('#compare-start-date').val( ( "00" + (lastm.getMonth() + 1)).substr(-2) + '/' + '01' + '/' + lastm.getFullYear() );
+		$('#compare-end-date').val( ("00" + (lastm.getMonth() + 1)).substr(-2) + '/' + ("00" + (new Date().getDate())).substr(-2) + '/' + lastm.getFullYear() );
+	}
+	if (dateType == 'quarter') {
+		var qm = new Date().getMonth();
+		var qstart = new Date(new Date().getFullYear(), QUARTERS_INFO[QUARTERS[qm] - 1]['start_month'], 1);
+		$('#start-date').val(jsdate_to_display(qstart));
+		$('#end-date').val(todayDisplay);
+		var cqend = new Date(qstart.getFullYear(), qstart.getMonth(), 0);
+		var cqm = cqend.getMonth();
+		var cqstart = new Date(cqend.getFullYear(), QUARTERS_INFO[QUARTERS[cqm] - 1]['start_month'], 1);
+		$('#compare-start-date').val(jsdate_to_display(cqstart));
+		$('#compare-end-date').val(jsdate_to_display(cqend));
+	}
+	if (dateType == 'week') {
+		var cday = new Date().getDay();
+		var start = todayDisplay;
+		var cstart = new Date(getLastNdays(7));
+		var cend = jsdate_to_display(cstart);
+		if (cday > 0) {
+			var wk_st = new Date(getLastNdays(cday));
+			start = jsdate_to_display(wk_st);
+			var cwk_st = new Date(cstart.setDate(cstart.getDate() - cday));
+			cstart = jsdate_to_display(cwk_st);
+		}
+		//                          console.log(cstart);
+		$('#start-date').val(start);
+		$('#end-date').val(todayDisplay);
+		$('#compare-start-date').val(cstart);
+		$('#compare-end-date').val(cend);
+	}
+	if (dateType == 'day') {
+		$('#start-date').val(todayDisplay);
+		$('#end-date').val(todayDisplay);
+		$('#compare-start-date').val(jsdate_to_display(new Date(getLastNdays(1))));
+		$('#compare-end-date').val(jsdate_to_display(new Date(getLastNdays(1))));
+	}
+	if ($.isNumeric(dateType)) { //dateType == '14' ){
+		var end = todayDisplay;
+		var int = parseInt(dateType);
+		var start = new Date(getLastNdays(int));
+		var cend = new Date(getLastNdays(int + 1));
+		var cstart = new Date(getLastNdays((int * 2) + 1));
+		$('#start-date').val(jsdate_to_display(start));
+		$('#end-date').val(end);
+		$('#compare-start-date').val(jsdate_to_display(cstart));
+		$('#compare-end-date').val(jsdate_to_display(cend));
+	}
+//	$('#start-date').trigger('change');
+});
+$('#date-preset').trigger('change');
+
+
+$("div.widget-row").on('change', 'select.scope', function() {
+	var chg = $(this).find('option:selected').attr('chg');
+	var cls = $(this).find('option:selected').attr('cls');
+	var cur = $(this).find('option:selected').attr('cur');
+	var com = $(this).find('option:selected').attr('com');
+    $(this).parent().removeClass('good');
+    $(this).parent().removeClass('bad');
+    $(this).parent().removeClass('up');
+    $(this).parent().removeClass('down');
+	$(this).parent().addClass( cls);
+	$(this).parent().find('span.cur').html(NumCommas(cur));
+	$(this).parent().find('span.pct-sm').html(NumCommas(chg));
+	$(this).parent().find('span.comp').html(NumCommas(com));
+});
+
+</script>
+
+
