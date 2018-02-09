@@ -819,6 +819,94 @@ var plot = new tauCharts.Plot({
                         ]
                     }
                 ]
+            },
+            {
+                key: {x: 1, y: 1, i:1},
+                source: '$',
+                pipe: [],
+                units: [
+                    {
+                        x: "x_LeadSource",
+                        y: "y_AvgMMR",
+                        type: "COORDS.RECT",
+                        expression: {
+                            inherit: false,
+                            operator: "none",
+                            params: [],
+                            source: "/"
+                        },
+                        guide: {
+                            autoLayout: "",
+                            x: {
+                                autoScale: true,
+                                cssClass: "x axis",
+                                hide: true,
+                                label: {
+                                    cssClass: "label",
+                                    padding: 129,
+                                    rotate: 0,
+                                    size: 889.75,
+                                    text: "LeadSource",
+                                    textAnchor: "middle"
+                                },
+                                padding: 20,
+                                rotate: 90,
+                                scaleOrient: "bottom",
+                                textAnchor: "start"
+                            },
+                            y: {
+                                autoScale: true,
+                                cssClass: "y axis",
+                                hide: false,
+                                label: {
+                                    cssClass: "label label-light-blue",
+                                    // padding: 70.25,
+                                    padding: -10,//-9,
+                                    rotate: -90,
+                                    size: 431,
+                                    text: "Average MMR",
+                                    textAnchor: "middle"
+                                },
+                                padding: 15,//55,
+                                rotate: 0,
+                                scaleOrient: "left",
+                                textAnchor: "end",
+                                tickFormat: "x-num-auto"
+                            },
+                            padding: {
+                                b: 100,//159,
+                                l: 40.25,
+                                r: 40.25,//10,
+                                t: 10
+                            },
+                            showGridLines: ""
+                        },
+
+                        units: [
+                            {
+                                size: "size_undefined",
+                                type: "ELEMENT.LINE",
+                                x: "x_LeadSource",
+                                y: "y_AvgMMR",
+                                color: "color_undefined2",
+                                expression: {
+                                    inherit: false,
+                                    operator: "none",
+                                    params: [],
+                                    source: "/"
+                                },
+                                guide: {
+                                    anchors: false,
+                                    cssClass: "i-role-datum",
+                                    showGridLines: "xy",
+                                    widthCssClass: "",
+                                    color: {},
+                                    showAnchors: 'always'
+                                }
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
