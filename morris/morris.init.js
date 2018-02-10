@@ -67,7 +67,7 @@
             { y: '2014', a: 75,  b: 65 , c: 50 },
             { y: '2015', a: 100, b: 90 , c: 65 }
           ];
-        this.createLineChart('morris-line-example', $data, 'y', ['a', 'b','c'], ['Series A', 'Series B', 'Series C'], ['#1a2942', '#3bc0c3', '#dcdcdc']);
+//         this.createLineChart('morris-line-example', $data, 'y', ['a', 'b','c'], ['Series A', 'Series B', 'Series C'], ['#1a2942', '#3bc0c3', '#dcdcdc']);
 
         //creating area chart
         var $areaData = [
