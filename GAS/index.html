@@ -346,6 +346,12 @@ var chart = bb.generate(chart_data);
                           <div class="col-lg-12 chart-container" id="avg-mmr-x-sales-rep"></div><!-- end col-->
                         </div><!-- end col-->
                       </div><!-- end col-->
+                      <div class="col-lg-6 chart-panel-container">
+                        <div class="col-lg-12 chart-panel">
+                          <div class="col-lg-12 chart-header" chartid="avg-mmr-x-credit-range">Average MMR by Credit Range</div>
+                          <div class="col-lg-12 chart-container" id="avg-mmr-x-credit-range"></div><!-- end col-->
+                        </div><!-- end col-->
+                      </div><!-- end col-->
                   </div> <!-- end row -->
                 </div> <!-- end lead-source-container -->
             </div>
@@ -715,11 +721,13 @@ $(function() {
       MMR_X_LEAD_SOURCE : {PCT:false,UP_GOOD:true},
       LEAD_SOURCES : {PCT:false,UP_GOOD:true, COUNT_CUR:[], COUNT_COMP:[], MMR_ALL:[], MMR_SUM_CUR:[], MMR_SUM_COMP:[], MMR_AVG_CUR:[], MMR_AVG_COMP:[]},
       SALES_REPS : {PCT:false,UP_GOOD:true, COUNT_CUR:[], COUNT_COMP:[], MMR_ALL:[], MMR_SUM_CUR:[], MMR_SUM_COMP:[], MMR_AVG_CUR:[], MMR_AVG_COMP:[]}
+      CREDIT_RANGES : {PCT:false,UP_GOOD:true, COUNT_CUR:[], COUNT_COMP:[], MMR_ALL:[], MMR_SUM_CUR:[], MMR_SUM_COMP:[], MMR_AVG_CUR:[], MMR_AVG_COMP:[]}
     }
     SESSIONS_SALES_X_DATE = {CHART_CONFIG:{},DATA:[],COLUMNS:{CONFIG:[],DATA:[]}};
     LEAD_SOURCE_X_DATE = {CHART_CONFIG:{},DATA:[],COLUMNS:{CONFIG:[],DATA:[]}};
     AVG_MMR_X_LEAD_SOURCE = {CHART_CONFIG:{},DATA:[],COLUMNS:{CONFIG:[],DATA:[]}};
     AVG_MMR_X_SALES_REP = {CHART_CONFIG:{},DATA:[],COLUMNS:{CONFIG:[],DATA:[]}};
+    AVG_MMR_X_CREDIT_RANGE = {CHART_CONFIG:{},DATA:[],COLUMNS:{CONFIG:[],DATA:[]}};
     
     jQuery(document).ready(function($) {
       google.script.run.withSuccessHandler(success_t32_and_ga).get_t32_data_and_ga();
@@ -927,33 +935,36 @@ function calculate(){
     }
   }
 
-//T32.LEAD_SOURCES['UNIQUE_LIST']= DB_T32().distinct("LeadSource");
-//T32.LEAD_SOURCES['UNIQUE_LIST'].sort(col1Asc);
-//
-//AVG_MMR_X_LEAD_SOURCE.CHART_CONFIG['SHOW_Y2'] = false;
-//AVG_MMR_X_LEAD_SOURCE.DATA = [];
-//AVG_MMR_X_LEAD_SOURCE.COLUMNS.DATA = [];
-//var data_arr = T32.LEAD_SOURCES['MMR_AVG_CUR'];
-//data_arr.sort(col2Desc);
-//for(var l=0;l<data_arr.length;l++){
-//  if(data_arr[l][1]>0){
-//    AVG_MMR_X_LEAD_SOURCE.COLUMNS.DATA.push(data_arr[l]);
-//    AVG_MMR_X_LEAD_SOURCE.COLUMNS.CONFIG.push({AXIS:"y",TYPE:'bar'});
-//    var ls_id = DB_T32_DCUR.filter({'LeadSource':data_arr[l]}).first().LeadSourceId;
-//  }
-//}
-//console.log(AVG_MMR_X_LEAD_SOURCE);
-//draw_bb_time_chart(AVG_MMR_X_LEAD_SOURCE,'#avg-mmr-x-lead-source');
-  
-//function test_mmr(){
-//  var totalMMR_arr = ['Total MMR',123,421,280];
-//  var avgMMR_arr = ['Avg MMR',24,26,29];
-//  var targetMMR_arr = ['Target MMR',50,50,50];
-//  var lSource_arr = ['LsourceA','LsourceB','LsourceC'];
-//  var dataArr = [];
-//  dataArr.push(totalMMR_arr,avgMMR_arr,targetMMR_arr,lSource_arr);
-//  draw_bb_chart(dataArr);
-//}
+/*
+  T32.CREDIT_RANGES['UNIQUE_LIST']= [['Bad',380,599],['Poor',600,649],['Fair',650,699],['Good',700,749],['Great',750,799],['Excellent',800,999]];
+  for(var l=0;l<T32.CREDIT_RANGES['UNIQUE_LIST'].length;l++){
+    var ls = T32.CREDIT_RANGES['UNIQUE_LIST'][l][0];
+    var min = T32.CREDIT_RANGES['UNIQUE_LIST'][l][0];
+    var max = T32.CREDIT_RANGES['UNIQUE_LIST'][l][0];
+    var testest = DB_T32_DCUR.sum("CreditScore");
+    console.log('test test '+testest);
+    if(ls!==''){
+      var count_cur = DB_T32_DCUR.filter({'CreditScore':T32.SALES_REPS['UNIQUE_LIST'][l]}).count();
+      var count_comp = DB_T32_DCOMP.filter({'SalesRep':T32.SALES_REPS['UNIQUE_LIST'][l]}).count();
+      var mmr_count_cur = DB_T32_DCUR.filter({'SalesRep':T32.SALES_REPS['UNIQUE_LIST'][l]}).filter({'MonthlyMonitoringBaseRate':{gte:0.01}}).count();
+      var mmr_count_comp = DB_T32_DCOMP.filter({'SalesRep':T32.SALES_REPS['UNIQUE_LIST'][l]}).filter({'MonthlyMonitoringBaseRate':{gte:0.01}}).count();
+      var mmr_sum_cur = DB_T32_DCUR.filter({'SalesRep':T32.SALES_REPS['UNIQUE_LIST'][l]}).sum("MonthlyMonitoringBaseRate");
+      var mmr_sum_comp = DB_T32_DCOMP.filter({'SalesRep':T32.SALES_REPS['UNIQUE_LIST'][l]}).sum("MonthlyMonitoringBaseRate");
+      var mmr_avg_cur = averageCatch(mmr_sum_cur,mmr_count_cur,0,2);
+      var mmr_avg_comp = averageCatch(mmr_sum_comp,count_comp,0,2);
+
+      T32.SALES_REPS['MMR_ALL'].push([ls,mmr_count_cur*1,mmr_count_comp*1,mmr_sum_cur*1,mmr_sum_comp*1,mmr_avg_cur*1,mmr_avg_comp*1]);
+      T32.SALES_REPS['COUNT_CUR'].push([ls,count_cur*1]);
+      T32.SALES_REPS['COUNT_COMP'].push([ls,count_comp*1]);
+      T32.SALES_REPS['MMR_SUM_CUR'].push([ls,mmr_sum_cur*1]);
+      T32.SALES_REPS['MMR_SUM_COMP'].push([ls,mmr_sum_comp*1]);
+      T32.SALES_REPS['MMR_AVG_CUR'].push([ls,mmr_avg_cur*1]);
+      T32.SALES_REPS['MMR_AVG_COMP'].push([ls,mmr_avg_comp*1]);
+    }
+  }
+*/
+
+
   
 /* AVG MMR X LEAD SOURCE */
 T32.LEAD_SOURCES['UNIQUE_LIST']= DB_T32().distinct("LeadSource");
