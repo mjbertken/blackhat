@@ -1,0 +1,176 @@
+function myFunction() {
+  var d = new Date();
+  var startTime = d.getTime();
+  
+  var totalRecordsReceived = 0;
+  
+  // added this array to keep track of CustomerAccountId added when pulling records by date modified
+  var CustomerIdByDateModified = [];
+  
+  
+  // Call Details method to pull records from Tier32 by Date Modifed
+  var responseData = postDetailsMethod("Modified");
+  
+  //pull response message from Details post request to record possible communication errors
+  var responseMessageModified = responseData.ResponseMessage;
+  
+  var newJSON = JSON.stringify(responseData.ResponseObject);
+  var dataSet = JSON.parse(newJSON);
+  var rows = [], data;
+  
+  // check if ResponseObject array recived is null, or empty
+  if (dataSet != null) {
+    totalRecordsReceived += dataSet.length;
+    for (i = 0; i < dataSet.length; i++) {
+      data = dataSet[i];
+      rows.push([data.CustomerAccountId,data.MonitoringID,data.CustomerName,data.Address1,data.Zip,data.Company,data.City,data.LongCity,data.County,data.State,data.Phone1,data.Email,data.Area,data.SaleDate,data.InstallDate,data.InstallTimeRange,data.ShortSaleDate,data.ShortInstallDate,data.Season,data.CustomerAccountIdName,data.AccountHolderID,data.AccountHolder,data.MonitoringCompanyID,data.MonitoringCompany,data.PanelTypeNameOLD,data.SystemName,data.SystemPackageName,data.CreditScore,data.StatusID,data.ActivationFeeAmount,data.AccountHolder1,data.MonthlyMonitoringBaseRate,data.SystemServicesTotal,data.MonthlyMonitoringRate,data.SalesRep,data.Technician,data.FriendsFamilyRep,data.Status,data.EquipmentStatus,data.isAccountOnline,data.isAccountInService,data.CaseCount,data.PointsUsedSales,data.LeadSource,data.LeadSourceId,data.isRepAccountHold,data.isTechAccountHold,data.DateEntered,data.QA,data.QA2,data.QA1Date,data.QualityScore,data.PreScreenDate,data.FullReportDate,data.ContractTerm,data.BillingMethod,data.Takeover,data.DOB,data.ContractId,data.TransactionID,data.CustomerLeadStatus,data.FollowUpDate,data.PermitStatus,data.FundedDate,data.DeclinedDate,data.TechnicianID,data.CreditGrade,data.HomeOwnerVerification,data.IsRebatePaid,data.TechDeductions,data.EquipmentBalanceTech,data.TechPaperSCDate,data.IsRebateReceived,data.SavedByID,data.MMRBase,data.ExperianFull,data.DateCreatedLong,data.AlarmDotComCustomerAccount,data.DateCancelled,data.SignalsConfirmationNumber,data.DateCreated,data.BillingAddress,data.TotalCreditsRun,data.RepPaperApprovedDate,data.DateOfBirth,data.CustomStatus,data.AppointmentSetter,data.PurchasePriceTotalTech,data.SupPaperApprovedDate,data.SupPaperSCDate,data.Phone2,data.Phone3,data.CollectionsAmount,data.TransunionFull,data.EquifaxFull,data.EquipmentBalanceSales,data.PointsGiven,data.SetupByApplication,data.SupPaperADate,data.TechPaperADate,data.VIPServiceFeeAmount,data.PostInstallSurvey,data.ContractExtensionDate,data.SystemServices,data.TechPaperCDate,data.SavedBy,data.FirstName,data.LastName,data.MailingAddress,data.PointsSoldSales,data.RepPaperSCDate,data.PointsSoldTech,data.CellSerialNumber,data.Address2,data.Address3,data.SupPaperCDate,data.BillingDayOfMonth,data.OnlineConfirmation,data.Language,data.IsRebateOffered,data.CancellationReason,data.TermRemaining,data.DateModified,data.OriginalSalesRep,data.SubmittedDate,data.SalesRepID,data.TechEmployeeID,data.CollectionsDate,data.RepPaperCDate,data.MMRTotal,data.RepPaperADate,data.PointsUsedTech,data.ActiveSubscriptionID,data.FriendsFamilyRepID,data.CreditRunBy,data.AccountBalance,data.EscalationStatus,data.RepDeductions,data.TechPaperApprovedDate,data.FriendsFamilyRep,data.TotalCreditHits,data.PointBalanceSales,data.RepEmployeeID,data.PurchasePriceTotalSales,data.ChargedBackDate,data.SavedDate,data.PreInstallSurvey]); //your JSON entities here
+      // used below to see if CustomerAccountId has already been added to "rows" array when pulling records by Sale Date in next step
+      CustomerIdByDateModified.push(data.CustomerAccountId);
+    }
+  }
+  
+  
+  // Repeat steps above to get records by Sale Date (for new records that aren't yet converted to customers in Tier32, no modified date exists)
+  responseData = postDetailsMethod("Sale");
+  
+  //pull response message from Details post request to record possible communication errors
+  var responseMessageSale = responseData.ResponseMessage;
+  
+  newJSON = JSON.stringify(responseData.ResponseObject);
+  dataSet = JSON.parse(newJSON);
+  
+  // check if ResponseObject array recived is null, or empty
+  if (dataSet != null) {
+    totalRecordsReceived += dataSet.length;
+    for (i = 0; i < dataSet.length; i++) {
+      data = dataSet[i];
+      
+      // if CustomerAccountId was added in previous details method by date modified step above, then skip record
+      if ( CustomerIdByDateModified.indexOf(data.CustomerAccountId) == -1) {
+        rows.push([data.CustomerAccountId,data.MonitoringID,data.CustomerName,data.Address1,data.Zip,data.Company,data.City,data.LongCity,data.County,data.State,data.Phone1,data.Email,data.Area,data.SaleDate,data.InstallDate,data.InstallTimeRange,data.ShortSaleDate,data.ShortInstallDate,data.Season,data.CustomerAccountIdName,data.AccountHolderID,data.AccountHolder,data.MonitoringCompanyID,data.MonitoringCompany,data.PanelTypeNameOLD,data.SystemName,data.SystemPackageName,data.CreditScore,data.StatusID,data.ActivationFeeAmount,data.AccountHolder1,data.MonthlyMonitoringBaseRate,data.SystemServicesTotal,data.MonthlyMonitoringRate,data.SalesRep,data.Technician,data.FriendsFamilyRep,data.Status,data.EquipmentStatus,data.isAccountOnline,data.isAccountInService,data.CaseCount,data.PointsUsedSales,data.LeadSource,data.LeadSourceId,data.isRepAccountHold,data.isTechAccountHold,data.DateEntered,data.QA,data.QA2,data.QA1Date,data.QualityScore,data.PreScreenDate,data.FullReportDate,data.ContractTerm,data.BillingMethod,data.Takeover,data.DOB,data.ContractId,data.TransactionID,data.CustomerLeadStatus,data.FollowUpDate,data.PermitStatus,data.FundedDate,data.DeclinedDate,data.TechnicianID,data.CreditGrade,data.HomeOwnerVerification,data.IsRebatePaid,data.TechDeductions,data.EquipmentBalanceTech,data.TechPaperSCDate,data.IsRebateReceived,data.SavedByID,data.MMRBase,data.ExperianFull,data.DateCreatedLong,data.AlarmDotComCustomerAccount,data.DateCancelled,data.SignalsConfirmationNumber,data.DateCreated,data.BillingAddress,data.TotalCreditsRun,data.RepPaperApprovedDate,data.DateOfBirth,data.CustomStatus,data.AppointmentSetter,data.PurchasePriceTotalTech,data.SupPaperApprovedDate,data.SupPaperSCDate,data.Phone2,data.Phone3,data.CollectionsAmount,data.TransunionFull,data.EquifaxFull,data.EquipmentBalanceSales,data.PointsGiven,data.SetupByApplication,data.SupPaperADate,data.TechPaperADate,data.VIPServiceFeeAmount,data.PostInstallSurvey,data.ContractExtensionDate,data.SystemServices,data.TechPaperCDate,data.SavedBy,data.FirstName,data.LastName,data.MailingAddress,data.PointsSoldSales,data.RepPaperSCDate,data.PointsSoldTech,data.CellSerialNumber,data.Address2,data.Address3,data.SupPaperCDate,data.BillingDayOfMonth,data.OnlineConfirmation,data.Language,data.IsRebateOffered,data.CancellationReason,data.TermRemaining,data.DateModified,data.OriginalSalesRep,data.SubmittedDate,data.SalesRepID,data.TechEmployeeID,data.CollectionsDate,data.RepPaperCDate,data.MMRTotal,data.RepPaperADate,data.PointsUsedTech,data.ActiveSubscriptionID,data.FriendsFamilyRepID,data.CreditRunBy,data.AccountBalance,data.EscalationStatus,data.RepDeductions,data.TechPaperApprovedDate,data.FriendsFamilyRep,data.TotalCreditHits,data.PointBalanceSales,data.RepEmployeeID,data.PurchasePriceTotalSales,data.ChargedBackDate,data.SavedDate,data.PreInstallSurvey]); //your JSON entities here
+      }  
+    }
+  }
+  
+  //Update Modified Records Program
+  var modified_records_file_id = '1F5-Nxd_ERYG3SlUWZmldMifo4MeqU-tUI5jUkMktJzY';
+  var all_records_file_id = '1_c2kcg2SmX799cRgZo5aSnoAJ41Gp1T0k4E0ZhuYI2I';
+  //var all_records_file_id = '1iFgedtfJC2ucGwe8to3goTJqrkXscptmzB5EjbUNvPI';
+  
+  // hard code in the Date Modified Column for now 
+  var dateModifiedColumn;
+  dateModifiedColumn = 122;
+  
+  var ss = SpreadsheetApp.openById(modified_records_file_id);
+  var modified_records_sheet = ss.getSheetByName('Sheet1');    
+  
+  var modified_data = rows;  
+  
+  ss = SpreadsheetApp.openById(all_records_file_id);
+  var all_records_sheet = ss.getSheetByName('Sheet1');
+  var all_data = all_records_sheet.getDataRange().getValues();
+  
+  var totalNewRecords, totalModifiedRecords;
+  totalNewRecords = totalModifiedRecords = 0;
+  
+  var foundCustomerId = false;
+  
+  var width = modified_records_sheet.getLastColumn();
+  var last_row = all_records_sheet.getLastRow();
+  
+  //Now searching for customer id; row = i
+  for (var i = 0; i < modified_data.length; i++) {
+    
+    for (var j = 0; j < all_data.length; j++) {
+      // check if CustomerId being searched for is found
+      if ( modified_data[i][0] == all_data[j][0] ){
+        foundCustomerId = true;
+        
+        // See if DateModfied in Modifed Records Sheet is more recent then record in All Records sheet
+        if (all_data[j][dateModifiedColumn] < modified_data[i][dateModifiedColumn] ) {
+          all_records_sheet.getRange(j+1,1,1,width).setValues([modified_data[i]]);
+          totalModifiedRecords++;
+        }
+        
+        break;
+      }  
+    }
+    
+    //Enter record at bottom of sheet if record not found 
+    if (foundCustomerId == false) {
+      all_records_sheet.getRange(last_row+1+totalNewRecords,1,1,width).setValues([modified_data[i]]);
+      totalNewRecords++;
+    }
+    
+    //reset foundCustomerId variable for next search
+    foundCustomerId = false;
+    
+  }
+  
+ 
+  d = new Date();
+  var endTime = d.getTime();
+  var totalRunTime = endTime - startTime; 
+  
+  // Output Results to Log Sheet
+  ss = SpreadsheetApp.openById(modified_records_file_id);
+  modified_records_sheet = ss.getSheetByName('log');
+   
+  last_row = modified_records_sheet.getLastRow();
+  modified_records_sheet.insertRowAfter(last_row);
+  
+  //pulled this calculation out of the .setValues function a few lines below so that it can be referenced in the email trigger
+  var totalRunTimeSeconds = (totalRunTime / 1000);
+  
+  // write program results to modifed document log sheet
+  var range = modified_records_sheet.getRange((last_row+1), 1, 1, 7).setValues([[d,totalNewRecords,totalModifiedRecords,totalRecordsReceived,totalRunTimeSeconds,responseMessageModified,responseMessageSale]]);
+  
+  //send an email notification to john and michael if the run time took longer than 15 seconds
+  if(totalRunTimeSeconds > 15 ){
+     MailApp.sendEmail('slyjak1@gmail.com', 'Blackhat API High Run Time: '+totalRunTimeSeconds.toFixed()+' seconds', 'When: '+d+'\n'+'TotalNewRecords: '+totalNewRecords+'\n'+'totalModifiedRecords: '+totalModifiedRecords+'\n'+'totalRunTimeSeconds: '+totalRunTimeSeconds, {
+         cc: 'michael@bertken.com'
+     });
+  }
+  
+  //send an email notification to john and michael if the Details request has an error in communication
+  var passedResponseMessege = "Details method sucessfully completed";
+  if(responseMessageModified != passedResponseMessege || responseMessageSale != passedResponseMessege){ 
+    MailApp.sendEmail('slyjak1@gmail.com', 'Details Method failed to communicate', 'When: '+d+'\n\n'+"Response Message from Modified request:\n" + responseMessageModified + "\n\nResponse Message from Sale request:\n" + responseMessageSale , {
+         cc: 'michael@bertken.com'
+     });
+  }  
+  
+  //Logger.log('Date/Time Program Complete ' + d);
+  //Logger.log('Total Modifed Records ' + totalModifiedRecords);
+  //Logger.log('Total New Records ' + totalNewRecords);
+  //Logger.log('Total Records Recieved' + totalRecordsReceived);
+  
+  
+}
+
+function postDetailsMethod(dateType) {
+  
+  var MS_PER_DAY = 86400000;
+  d = new Date();
+  
+  var today = Utilities.formatDate(d, "GMT-8", "MM-dd-yyyy");
+  var tomorrow = Utilities.formatDate(new Date(d.getTime() + MS_PER_DAY), "GMT-8", "MM-dd-yyyy");
+  
+  var myDetailsRequest = {"StartDate": "02-1-2018", "EndDate": "02-28-2018","DateTypeName": dateType};
+  
+  var myJSON = JSON.stringify(myDetailsRequest);
+  
+  var options = {
+    'method' : 'post',                  // specify the request type
+    'contentType': 'application/json',  // specify the Media Type 
+    'payload' : myJSON                  // my JSON stringified object
+  };
+
+  // send the request
+  var response = UrlFetchApp.fetch('http://johnakelly.com/blackhat_v1/wp-json/myplugin/v1/dashboard/', options);
+  
+  var json = response.getContentText();
+  var data = JSON.parse(json);
+  return data;
+  
+}  
