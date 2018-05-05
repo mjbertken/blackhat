@@ -156,7 +156,7 @@ function postDetailsMethod(dateType) {
   var today = Utilities.formatDate(d, "GMT-8", "MM-dd-yyyy");
   var tomorrow = Utilities.formatDate(new Date(d.getTime() + MS_PER_DAY), "GMT-8", "MM-dd-yyyy");
   
-  var myDetailsRequest = {"StartDate": "02-1-2018", "EndDate": "02-28-2018","DateTypeName": dateType};
+  var myDetailsRequest = {"StartDate": "03-1-2018", "EndDate": "03-31-2018","DateTypeName": dateType};
   
   var myJSON = JSON.stringify(myDetailsRequest);
   
