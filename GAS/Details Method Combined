@@ -44,7 +44,7 @@ function myFunction() {
     totalRecordsReceived += dataSet.length;
     for (i = 0; i < dataSet.length; i++) {
       data = dataSet[i];
-      
+      Logger.log('Now founding  CustomerAccountId: ' + data.CustomerAccountId);
       // if CustomerAccountId was added in previous details method by date modified step above, then skip record
       if ( CustomerIdByDateModified.indexOf(data.CustomerAccountId) == -1) {
         rows.push([data.CustomerAccountId,data.MonitoringID,data.CustomerName,data.Address1,data.Zip,data.Company,data.City,data.LongCity,data.County,data.State,data.Phone1,data.Email,data.Area,data.SaleDate,data.InstallDate,data.InstallTimeRange,data.ShortSaleDate,data.ShortInstallDate,data.Season,data.CustomerAccountIdName,data.AccountHolderID,data.AccountHolder,data.MonitoringCompanyID,data.MonitoringCompany,data.PanelTypeNameOLD,data.SystemName,data.SystemPackageName,data.CreditScore,data.StatusID,data.ActivationFeeAmount,data.AccountHolder1,data.MonthlyMonitoringBaseRate,data.SystemServicesTotal,data.MonthlyMonitoringRate,data.SalesRep,data.Technician,data.FriendsFamilyRep,data.Status,data.EquipmentStatus,data.isAccountOnline,data.isAccountInService,data.CaseCount,data.PointsUsedSales,data.LeadSource,data.LeadSourceId,data.isRepAccountHold,data.isTechAccountHold,data.DateEntered,data.QA,data.QA2,data.QA1Date,data.QualityScore,data.PreScreenDate,data.FullReportDate,data.ContractTerm,data.BillingMethod,data.Takeover,data.DOB,data.ContractId,data.TransactionID,data.CustomerLeadStatus,data.FollowUpDate,data.PermitStatus,data.FundedDate,data.DeclinedDate,data.TechnicianID,data.CreditGrade,data.HomeOwnerVerification,data.IsRebatePaid,data.TechDeductions,data.EquipmentBalanceTech,data.TechPaperSCDate,data.IsRebateReceived,data.SavedByID,data.MMRBase,data.ExperianFull,data.DateCreatedLong,data.AlarmDotComCustomerAccount,data.DateCancelled,data.SignalsConfirmationNumber,data.DateCreated,data.BillingAddress,data.TotalCreditsRun,data.RepPaperApprovedDate,data.DateOfBirth,data.CustomStatus,data.AppointmentSetter,data.PurchasePriceTotalTech,data.SupPaperApprovedDate,data.SupPaperSCDate,data.Phone2,data.Phone3,data.CollectionsAmount,data.TransunionFull,data.EquifaxFull,data.EquipmentBalanceSales,data.PointsGiven,data.SetupByApplication,data.SupPaperADate,data.TechPaperADate,data.VIPServiceFeeAmount,data.PostInstallSurvey,data.ContractExtensionDate,data.SystemServices,data.TechPaperCDate,data.SavedBy,data.FirstName,data.LastName,data.MailingAddress,data.PointsSoldSales,data.RepPaperSCDate,data.PointsSoldTech,data.CellSerialNumber,data.Address2,data.Address3,data.SupPaperCDate,data.BillingDayOfMonth,data.OnlineConfirmation,data.Language,data.IsRebateOffered,data.CancellationReason,data.TermRemaining,data.DateModified,data.OriginalSalesRep,data.SubmittedDate,data.SalesRepID,data.TechEmployeeID,data.CollectionsDate,data.RepPaperCDate,data.MMRTotal,data.RepPaperADate,data.PointsUsedTech,data.ActiveSubscriptionID,data.FriendsFamilyRepID,data.CreditRunBy,data.AccountBalance,data.EscalationStatus,data.RepDeductions,data.TechPaperApprovedDate,data.FriendsFamilyRep,data.TotalCreditHits,data.PointBalanceSales,data.RepEmployeeID,data.PurchasePriceTotalSales,data.ChargedBackDate,data.SavedDate,data.PreInstallSurvey]); //your JSON entities here
@@ -156,8 +156,11 @@ function postDetailsMethod(dateType) {
   var today = Utilities.formatDate(d, "GMT-8", "MM-dd-yyyy");
   var tomorrow = Utilities.formatDate(new Date(d.getTime() + MS_PER_DAY), "GMT-8", "MM-dd-yyyy");
   
+  Logger.log('today is' + today);
+  Logger.log('tomorrow is' + tomorrow);
+  
   var myDetailsRequest = {"StartDate": today, "EndDate": tomorrow,"DateTypeName": dateType};
-  //var myDetailsRequest = {"StartDate": "05-02-2018", "EndDate": "05-05-2018","DateTypeName": dateType};
+  //var myDetailsRequest = {"StartDate": "05-04-2018", "EndDate": "05-05-2018","DateTypeName": dateType};
   
   var myJSON = JSON.stringify(myDetailsRequest);
   
